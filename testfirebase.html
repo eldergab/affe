@@ -13,24 +13,29 @@
         <button type="submit">Salvar</button>
     </form>
 
-   <script type="module">
-  // Importa o Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Configuração do Firebase (use os dados do seu projeto)
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_PROJETO.firebaseapp.com",
-    projectId: "SEU_PROJETO",
-    storageBucket: "SEU_PROJETO.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID"
+    apiKey: "AIzaSyC6kiIwpDcOYRiDp0CkbjWeRuFI_2axw4E",
+    authDomain: "cooperativa-affe.firebaseapp.com",
+    projectId: "cooperativa-affe",
+    storageBucket: "cooperativa-affe.firebasestorage.app",
+    messagingSenderId: "1013280029764",
+    appId: "1:1013280029764:web:b9554e13f0a9d633b01011",
+    measurementId: "G-W00JRTXYMV"
   };
 
-  // Inicializa o Firebase
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  const analytics = getAnalytics(app);
+</script>= getFirestore(app);
 </script>
 
 </body>
