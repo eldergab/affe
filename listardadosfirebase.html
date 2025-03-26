@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Lista de Usuários Cadastrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaUsuarios"></tbody>
+    </table>
+
+    <script type="module">
+        // Importa o Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            projectId: "SEU_PROJETO",
+            storageBucket: "SEU_PROJETO.appspot.com",
+            messagingSenderId: "SENDER_ID",
+            appId: "APP_ID"
+        };
+
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Função para carregar os usuários na tabela
+        function carregarUsuarios() {
+            const tabela = document.getElementById("tabelaUsuarios");
+            tabela.innerHTML = ""; // Limpa a tabela antes de atualizar
+
+            // Escuta mudanças em tempo real no Firestore
+            onSnapshot(collection(db, "usuarios"), (snapshot) => {
+                tabela.innerHTML = ""; // Limpa a tabela a cada atualização
+                snapshot.forEach((doc) => {
+                    let usuario = doc.data();
+                    let linha = `<tr>
+                        <td>${usuario.nome}</td>
+                        <td>${usuario.email}</td>
+                    </tr>`;
+                    tabela.innerHTML += linha;
+                });
+            });
+        }
+
+        // Chama a função ao carregar a página
+        carregarUsuarios();
+    </script>
+
+</body>
+</html>
