@@ -1,0 +1,167 @@
+<?php
+$pageTitle = "Nossos Projetos - Cooperativa AFFE";
+include 'header.php';
+?>
+        <section class="hero bg-green-700 text-white py-12 md:py-20">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-2xl md:text-4xl font-bold mb-4">Nossos Projetos</h2>
+                    <p class="text-lg md:text-xl">Conheça nossas iniciativas que transformam vidas e comunidades</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="py-12 md:py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Nossas Iniciativas</h2>
+                    <p class="text-gray-600">Programas que promovem sustentabilidade e desenvolvimento social</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Project 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200">
+                            <!-- Image placeholder - substituir por imagem real -->
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-recycle text-5xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Reciclagem de Materiais</h3>
+                            <p class="text-gray-600 mb-4">Coleta e processamento de ferro, metais, plásticos e outros materiais recicláveis, gerando renda para os cooperados.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Formalização da cadeia de reciclagem</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Geração de renda sustentável</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Redução do impacto ambiental</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200">
+                            <!-- Image placeholder - substituir por imagem real -->
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-utensils text-5xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Reciclagem de Alimentos</h3>
+                            <p class="text-gray-600 mb-4">Separação de alimentos aptos para consumo humano e animal, evitando desperdício e ajudando famílias necessitadas.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Combate ao desperdício de alimentos</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Doações para famílias vulneráveis</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Parcerias com mercados e feiras</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200">
+                            <!-- Image placeholder - substituir por imagem real -->
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-home text-5xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Alegrar a Família</h3>
+                            <p class="text-gray-600 mb-4">Distribuição de alimentos e produtos essenciais para famílias em situação de vulnerabilidade social.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Apoio mensal a famílias cadastradas</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Cestas básicas e produtos de higiene</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Acompanhamento social</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200">
+                            <!-- Image placeholder - substituir por imagem real -->
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-graduation-cap text-5xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Cursos de Capacitação</h3>
+                            <p class="text-gray-600 mb-4">Oficinas e treinamentos nas áreas de reciclagem, sustentabilidade e empreendedorismo para cooperados e comunidade.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Desenvolvimento de habilidades</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Geração de novas oportunidades</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700">Educação ambiental</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="py-12 md:py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Nosso Impacto</h2>
+                    <p class="text-gray-600">Números que mostram a diferença que fazemos juntos</p>
+                </div>
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-green-600 mb-2">120+</div>
+                        <div class="text-gray-700">Famílias beneficiadas</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-green-600 mb-2">236</div>
+                        <div class="text-gray-700">Cooperados ativos</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-green-600 mb-2">2</div>
+                        <div class="text-gray-700">Toneladas recicladas/mês</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-green-600 mb-2">50+</div>
+                        <div class="text-gray-700">Cursos oferecidos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<?php
+include 'footer.php';
+?>
