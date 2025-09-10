@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícias - Cooperativa AFFE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Open Sans', sans-serif; }
+    </style>
+    <script src="js/templates.js" defer></script>
+</head>
+<body>
+    <div id="header"></div>
+
+    <section class="hero bg-green-700 text-white py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-4xl font-bold mb-4">Notícias e Eventos</h2>
+                <p class="text-lg md:text-xl">Fique por dentro das novidades da nossa cooperativa</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Últimas Notícias</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- News 1 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-48 bg-gray-200">
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-newspaper text-5xl"></i>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-green-600 text-white text-center rounded w-12">
+                            <div class="font-bold text-lg">15</div>
+                            <div class="text-xs uppercase">MAI</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Evento de Reciclagem Comunitária</h3>
+                        <p class="text-sm text-gray-500 mb-3">Publicado em 10/05/2023 | Eventos</p>
+                        <p class="text-gray-600 mb-4">Participe do nosso grande evento mensal de coleta de materiais recicláveis no próximo sábado...</p>
+                        <a href="#" class="text-green-600 font-medium hover:text-green-700">
+                            Ler mais <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- News 2 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-48 bg-gray-200">
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-graduation-cap text-5xl"></i>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-green-600 text-white text-center rounded w-12">
+                            <div class="font-bold text-lg">22</div>
+                            <div class="text-xs uppercase">MAI</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Novos Cursos de Capacitação</h3>
+                        <p class="text-sm text-gray-500 mb-3">Publicado em 05/05/2023 | Cursos</p>
+                        <p class="text-gray-600 mb-4">Estamos lançando novos cursos de empreendedorismo e gestão de resíduos para nossos cooperados...</p>
+                        <a href="#" class="text-green-600 font-medium hover:text-green-700">
+                            Ler mais <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- News 3 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-48 bg-gray-200">
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-handshake text-5xl"></i>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-green-600 text-white text-center rounded w-12">
+                            <div class="font-bold text-lg">30</div>
+                            <div class="text-xs uppercase">ABR</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Nova Parceria Comercial</h3>
+                        <p class="text-sm text-gray-500 mb-3">Publicado em 25/04/2023 | Parcerias</p>
+                        <p class="text-gray-600 mb-4">Fechamos uma importante parceria com a empresa XYZ para comercialização de nossos materiais reciclados...</p>
+                        <a href="#" class="text-green-600 font-medium hover:text-green-700">
+                            Ler mais <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-12">
+                <nav class="flex space-x-2">
+                    <a href="#" class="px-3 py-1 bg-green-600 text-white rounded">1</a>
+                    <a href="#" class="px-3 py-1 bg-white text-gray-700 rounded hover:bg-gray-100">2</a>
+                    <a href="#" class="px-3 py-1 bg-white text-gray-700 rounded hover:bg-gray-100">3</a>
+                    <a href="#" class="px-3 py-1 bg-white text-gray-700 rounded hover:bg-gray-100">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Próximos Eventos</h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- Event 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm flex flex-col md:flex-row gap-6">
+                    <div class="bg-green-600 text-white text-center rounded w-20 h-20 flex-shrink-0 flex flex-col justify-center">
+                        <div class="font-bold text-2xl">05</div>
+                        <div class="text-sm uppercase">JUN</div>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Workshop de Compostagem Doméstica</h3>
+                        <p class="text-gray-500 mb-2">
+                            <i class="fas fa-clock text-green-600 mr-1"></i> 14:00 - 17:00 | 
+                            <i class="fas fa-map-marker-alt text-green-600 mr-1 ml-2"></i> Sede da Cooperativa
+                        </p>
+                        <p class="text-gray-600">Aprenda a transformar seus resíduos orgânicos em adubo de qualidade para suas plantas.</p>
+                    </div>
+                    <div class="flex-shrink-0 self-center mt-4 md:mt-0">
+                        <a href="#" class="inline-block bg-green-600 text-white font-medium py-2 px-4 rounded hover:bg-green-700 transition">
+                            Participar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm flex flex-col md:flex-row gap-6">
+                    <div class="bg-green-600 text-white text-center rounded w-20 h-20 flex-shrink-0 flex flex-col justify-center">
+                        <div class="font-bold text-2xl">12</div>
+                        <div class="text-sm uppercase">JUN</div>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Dia da Coleta Especial</h3>
+                        <p class="text-gray-500 mb-2">
+                            <i class="fas fa-clock text-green-600 mr-1"></i> 08:00 - 16:00 | 
+                            <i class="fas fa-map-marker-alt text-green-600 mr-1 ml-2"></i> Praça Central
+                        </p>
+                        <p class="text-gray-600">Traga seus materiais recicláveis e participe do nosso mutirão mensal de coleta.</p>
+                    </div>
+                    <div class="flex-shrink-0 self-center mt-4 md:mt-0">
+                        <a href="#" class="inline-block bg-green-600 text-white font-medium py-2 px-4 rounded hover:bg-green-700 transition">
+                            Participar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+</body>
+</html>
