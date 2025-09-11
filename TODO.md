@@ -1,0 +1,8 @@
+- [x] Update index.html to use PHP includes for header and footer
+- [x] Update sobre.html to use PHP includes for header and footer
+- [x] Update projetos.html to use PHP includes for header and footer
+- [x] Update contato.html to use PHP includes for header and footer
+- [x] Update noticias.html to use PHP includes for header and footer
+- [x] Update participar.html to use PHP includes for header and footer
+- [x] Update presentation.html to use PHP includes for header and footer
+- [x] Remove js/templates.js script from all pages

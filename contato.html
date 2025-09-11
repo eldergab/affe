@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato - Cooperativa AFFE</title>
+    <title>Contato - Consorcio AFFE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
             submitBtn.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin ml-2"></i>';
 
             // Usando FormSubmit.co para processar o formulário
-            fetch('https://formsubmit.co/ajax/contato@affe.com.br', {
+            fetch('https://formsubmit.co/ajax/contato@consorcioaffe.org.br', {
                 method: 'POST',
                 body: formData
             })
@@ -46,11 +46,7 @@
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <h1 class="text-2xl md:text-3xl font-bold mb-6">Entre em Contato</h1>
 
-        <?php if (isset($_GET['status'])): ?>
-            <div class="<?php echo $_GET['status'] === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> p-4 rounded-lg mb-6">
-                <?php echo $_GET['status'] === 'success' ? 'Mensagem enviada com sucesso!' : 'Ocorreu um erro ao enviar sua mensagem.'; ?>
-            </div>
-        <?php endif; ?>
+        <div id="status-message"></div>
 
         <form class="space-y-4" onsubmit="handleSubmit(event)">
             <div>
