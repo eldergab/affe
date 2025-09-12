@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Equipes - Paintball</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    img { max-width: 300px; display: block; margin-bottom: 20px; }
+    form { margin-bottom: 20px; }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; max-width: 300px; }
+    ul { list-style: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    .team-item { border: 1px solid #ccc; padding: 10px; max-width: 400px; }
+    .actions button { margin-right: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Equipes - Paintball</h1>
+  <img src="images/Gemini_Generated_Image_mbxj3ymbxj3ymbxj.png" alt="Imagem Paintball" />
+  <form id="teamForm">
+    <input type="text" id="teamName" placeholder="Nome da equipe" required />
+    <input type="text" id="teamLeader" placeholder="Nome do líder" required />
+    <input type="email" id="teamEmail" placeholder="Email do líder" required />
+    <button type="submit">Cadastrar Equipe</button>
+  </form>
+  <h2>Equipes Cadastradas</h2>
+  <ul id="teamsList"></ul>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDplkg8QESxOZB4o6sL0dm8_H8sUza67nM",
+      authDomain: "consorcio-84d36.firebaseapp.com",
+      projectId: "consorcio-84d36",
+      storageBucket: "consorcio-84d36.appspot.com",
+      messagingSenderId: "411546295386",
+      appId: "1:411546295386:web:1730f62a37a368bc630c63",
+      measurementId: "G-6XSKZD2Y47"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const teamForm = document.getElementById('teamForm');
+    const teamsList = document.getElementById('teamsList');
+
+    let editId = null;
+
+    // Add or update team
+    teamForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('teamName').value.trim();
+      const leader = document.getElementById('teamLeader').value.trim();
+      const email = document.getElementById('teamEmail').value.trim();
+
+      if (!name || !leader || !email) return alert('Preencha todos os campos.');
+
+      if (editId) {
+        await db.collection('paintballTeams').doc(editId).update({ name, leader, email });
+        editId = null;
+      } else {
+        await db.collection('paintballTeams').add({ name, leader, email });
+      }
+
+      teamForm.reset();
+      loadTeams();
+    });
+
+    // Load teams
+    async function loadTeams() {
+      teamsList.innerHTML = '';
+      const snapshot = await db.collection('paintballTeams').get();
+      snapshot.forEach(doc => {
+        const team = doc.data();
+        const li = document.createElement('li');
+        li.className = 'team-item';
+        li.innerHTML = `
+          <strong>${team.name}</strong><br/>
+          Líder: ${team.leader}<br/>
+          Email: ${team.email}<br/>
+          <div class="actions">
+            <button onclick="editTeam('${doc.id}', '${team.name}', '${team.leader}', '${team.email}')">Editar</button>
+            <button onclick="deleteTeam('${doc.id}')">Excluir</button>
+          </div>
+        `;
+        teamsList.appendChild(li);
+      });
+    }
+
+    // Edit team
+    function editTeam(id, name, leader, email) {
+      editId = id;
+      document.getElementById('teamName').value = name;
+      document.getElementById('teamLeader').value = leader;
+      document.getElementById('teamEmail').value = email;
+    }
+
+    // Delete team
+    async function deleteTeam(id) {
+      if (confirm('Deseja realmente excluir esta equipe?')) {
+        await db.collection('paintballTeams').doc(id).delete();
+        loadTeams();
+      }
+    }
+
+    loadTeams();
+  </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Participantes - Airsoft</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+    form {
+      margin-bottom: 20px;
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    button {
+      background-color: #2d8fdd;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1b6fb8;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+    }
+    li {
+      margin-bottom: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Participantes - Airsoft</h1>
+  <form id="participantForm">
+    <label for="fullName">Nome Completo</label>
+    <input type="text" id="fullName" placeholder="Nome completo" required />
+    
+    <label for="nickName">Nome de Guerra</label>
+    <input type="text" id="nickName" placeholder="Nome de guerra" required />
+    
+    <label for="phone">Telefone de Contato</label>
+    <input type="tel" id="phone" placeholder="Telefone" required />
+    
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Email" required />
+    
+    <label for="teamSelect">Nome da Equipe</label>
+    <select id="teamSelect" required>
+      <option value="">Selecione a equipe</option>
+    </select>
+    
+    <div id="leaderInfo" style="margin-top:10px; font-weight: bold;"></div>
+    
+    <button type="submit">Cadastrar Participante</button>
+  </form>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDplkg8QESxOZB4o6sL0dm8_H8sUza67nM",
+      authDomain: "consorcio-84d36.firebaseapp.com",
+      projectId: "consorcio-84d36",
+      storageBucket: "consorcio-84d36.appspot.com",
+      messagingSenderId: "411546295386",
+      appId: "1:411546295386:web:1730f62a37a368bc630c63",
+      measurementId: "G-6XSKZD2Y47"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const participantForm = document.getElementById('participantForm');
+    const teamSelect = document.getElementById('teamSelect');
+    const leaderInfo = document.getElementById('leaderInfo');
+
+    let editId = null;
+    let teamsCache = {};
+
+    // Load teams into select
+    async function loadTeams() {
+      const snapshot = await db.collection('airsoftTeams').get();
+      teamSelect.innerHTML = '<option value="">Selecione a equipe</option>';
+      teamsCache = {};
+      snapshot.forEach(doc => {
+        const team = doc.data();
+        teamsCache[doc.id] = team;
+        const option = document.createElement('option');
+        option.value = doc.id;
+        option.textContent = team.name;
+        teamSelect.appendChild(option);
+      });
+    }
+
+    // Show leader info when team selected
+    teamSelect.addEventListener('change', () => {
+      const teamId = teamSelect.value;
+      if (teamId && teamsCache[teamId]) {
+        const team = teamsCache[teamId];
+        leaderInfo.textContent = `Líder: ${team.leader} - WhatsApp: ${team.whatsapp}`;
+      } else {
+        leaderInfo.textContent = '';
+      }
+    });
+
+    // Add or update participant
+    participantForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const nickName = document.getElementById('nickName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const teamId = teamSelect.value;
+
+      if (!fullName || !nickName || !phone || !email || !teamId) {
+        return alert('Preencha todos os campos.');
+      }
+
+      if (editId) {
+        await db.collection('airsoftParticipants').doc(editId).update({ fullName, nickName, phone, email, teamId });
+        editId = null;
+      } else {
+        await db.collection('airsoftParticipants').add({ fullName, nickName, phone, email, teamId });
+      }
+
+      participantForm.reset();
+      leaderInfo.textContent = '';
+    });
+
+    loadTeams();
+  </script>
+</body>
+</html>
