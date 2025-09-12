@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Equipes - Consorcio AFFE</title>
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#2d8fdd" />
   <style>
     body {
@@ -68,22 +68,46 @@
 </head>
 <body>
   <h1>Equipes - Consorcio AFFE</h1>
+  <button id="install-button" style="display: none; margin-bottom: 20px; padding: 10px 20px; background-color: #2d8fdd; color: white; border: none; border-radius: 5px; cursor: pointer;">Instalar App</button>
   <div class="teams-container">
     <a href="airsoft_participantes.html" class="team-card" aria-label="Equipe Airsoft">
-      <img src="images/airsoft_team.png" alt="Equipe Airsoft" class="team-image" />
+      <img src="/equipes/images/airsoft_team.png" alt="Equipe Airsoft" class="team-image" />
       <div class="team-name">Airsoft</div>
     </a>
     <a href="paintball_participantes.html" class="team-card" aria-label="Equipe Paintball">
-      <img src="images/paintball_team.png" alt="Equipe Paintball" class="team-image" />
+      <img src="/equipes/images/paintball_team.png" alt="Equipe Paintball" class="team-image" />
       <div class="team-name">Paintball</div>
     </a>
   </div>
 
   <script>
+    let deferredPrompt;
+
+    // Listen for the beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI to notify the user they can install the PWA
+      const installButton = document.getElementById('install-button');
+      installButton.style.display = 'block';
+
+      // Optionally, send analytics event that PWA install promo was shown.
+      console.log(`'beforeinstallprompt' event was fired.`);
+    });
+
+    // Listen for the appinstalled event
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('PWA was installed successfully');
+      const installButton = document.getElementById('install-button');
+      installButton.style.display = 'none';
+    });
+
     // Register service worker for PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
+        navigator.serviceWorker.register('/service-worker.js')
           .then(registration => {
             console.log('Service Worker registrado com sucesso:', registration.scope);
           })
@@ -92,6 +116,22 @@
           });
       });
     }
+
+    // Handle the install button click
+    document.getElementById('install-button').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        // Optionally, send analytics event with outcome of user choice
+        console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+        // Hide the install button
+        document.getElementById('install-button').style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
