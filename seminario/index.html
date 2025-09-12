@@ -1,105 +1,237 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bênçãos Patriarcais - Citações e Perguntas</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bênçãos patriarcais — Citações e Perguntas</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      background: #f9f9f9;
-      color: #333;
+    :root{
+      --bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --accent:#0f172a;
+      --maxw:1100px; --gap:18px;
     }
-    header img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    header h1 {
-      text-align: center;
-      padding: 1rem;
-      background: #4a90e2;
-      color: #fff;
-      margin: 0;
-    }
-    .container {
-      width: 90%;
-      max-width: 1000px;
-      margin: 20px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #4a90e2;
-      margin-top: 20px;
-    }
-    blockquote {
-      background: #f0f8ff;
-      border-left: 5px solid #4a90e2;
-      margin: 15px 0;
-      padding: 10px 15px;
-      font-style: italic;
-    }
-    ul {
-      margin: 10px 0 20px 20px;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 16px;
-      }
-      .container {
-        padding: 15px;
-      }
-    }
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; margin:0; background:var(--bg); color:var(--accent); line-height:1.45}
+    .wrap{max-width:var(--maxw); margin:28px auto; padding:18px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#ede9fe,#fce7f3);display:flex;align-items:center;justify-content:center;font-weight:700;color:#111}
+    h1{font-size:1.4rem;margin:0}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+    @media(min-width:840px){.grid{grid-template-columns: 1fr 380px}}
+
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    .section-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .section-title h2{font-size:1.05rem;margin:0}
+    .cite{font-style:italic;color:#0b3b3b;background:#f0fdf4;padding:10px;border-radius:8px;margin:8px 0}
+    .meta{font-size:0.86rem;color:var(--muted);margin-top:6px}
+
+    .list{padding-left:16px;margin:8px 0}
+    .list li{margin:8px 0}
+
+    /* link anchors */
+    .q-link{display:inline-block;padding:6px 8px;border-radius:8px;background:#eef2ff;color:#0b3bff;text-decoration:none;font-size:0.9rem}
+
+    /* questions area */
+    .questions h3{margin-top:0}
+    .qa{border-left:3px solid #e6eef8;padding:10px 12px;margin:10px 0;border-radius:6px;background:#fbfdff}
+    .qa h4{margin:0 0 6px;font-size:0.98rem}
+    .qa p{margin:0;color:var(--muted)}
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    footer{margin-top:16px;text-align:center;color:var(--muted);font-size:0.9rem}
+
+    /* accordion for mobile / accessibility */
+    .accordion{border-radius:8px;overflow:hidden}
+    .acc-item{border-top:1px solid #eef2f6}
+    .acc-btn{width:100%;text-align:left;padding:12px;background:none;border:0;cursor:pointer;font-weight:600}
+    .acc-content{padding:0 12px 12px;display:none}
+    .acc-btn:focus{outline:2px solid #c7d2fe}
   </style>
 </head>
 <body>
-  <header>
-    <img src="c6dd184d-44b4-4670-a170-64e733e2a4d1.png" alt="Homem em uma encruzilhada, escolhendo um caminho">
-    <h1>Bênçãos Patriarcais - Citações e Perguntas</h1>
-  </header>
+  <div class="wrap">
+    <header>
+      <div class="logo">BP</div>
+      <div>
+        <h1>Bênçãos patriarcais — Citações e Perguntas</h1>
+        <p class="lead">Citações selecionadas do material e as perguntas relacionadas para uso em ensino.</p>
+      </div>
+    </header>
 
-  <div class="container">
-    <h2>Escrituras</h2>
-    <blockquote>Doutrina e Convênios 6:14 – Sempre que perguntarmos a Deus, Ele nos instruirá por meio de Seu Espírito.</blockquote>
-    <blockquote>Doutrina e Convênios 42:61 – Se pedirmos, Deus nos abençoará com revelação sobre revelação.</blockquote>
-    <blockquote>Doutrina e Convênios 112:10 – Deus nos guiará pela mão e nos dará respostas a nossas orações.</blockquote>
+    <main class="grid">
+      <section class="card">
+        <div class="section-title"><h2>Citações importantes</h2></div>
 
-    <h2>Perguntas ligadas</h2>
-    <ul>
-      <li>Quais são alguns aspectos de sua vida nos quais você pode se sentir como a pessoa nesta gravura? Por quê?</li>
-      <li>O que pode nos ajudar a saber o que fazer quando não temos certeza da direção que devemos tomar na vida?</li>
-      <li>Como a lembrança dessas verdades influencia seus sentimentos ou suas atitudes em relação a Deus?</li>
-      <li>Quais são algumas maneiras pelas quais Deus nos dá orientação para nossa vida?</li>
-    </ul>
+        <article>
+          <h3>Escrituras citadas</h3>
+          <ul class="list">
+            <li><strong>Doutrina e Convênios 6:14</strong> — (mencionado no texto como fonte de orientação pelo Espírito).</li>
+            <li><strong>Doutrina e Convênios 42:61</strong> — (mencionado no texto sobre receber "revelação sobre revelação").</li>
+            <li><strong>Doutrina e Convênios 112:10</strong> — (mencionado no texto sobre Deus nos guiar pela mão).</li>
+          </ul>
+        </article>
 
-    <h2>Citações de Líderes</h2>
-    <blockquote>Presidente Russell M. Nelson: “A bênção patriarcal é preciosa. É uma escritura pessoal para vocês...”</blockquote>
-    <blockquote>Élder Kazuhiko Yamashita: “Leio minha bênção patriarcal com frequência e em espírito de oração...”</blockquote>
-    <blockquote>Bonnie H. Cordon: “Encontrem sua bênção patriarcal, soprem a poeira se precisarem, mas a estudem com frequência...”</blockquote>
-    <blockquote>Rebecca L. Craven: “A bênção patriarcal é uma bênção inspirada do Pai Celestial dada por um patriarca ordenado...”</blockquote>
-    <blockquote>Laudy Ruth Kaouk: “Aprendi a recorrer à minha bênção patriarcal sempre que me sinto triste ou solitária...”</blockquote>
+        <article>
+          <h3>Declarações de líderes</h3>
 
-    <h2>Perguntas ligadas</h2>
-    <ul>
-      <li>O que é uma bênção patriarcal?</li>
-      <li>De que forma uma bênção patriarcal pode impactar meu relacionamento com o Pai Celestial e Jesus Cristo?</li>
-      <li>Como posso me preparar para minha bênção patriarcal?</li>
-      <li>Quando devo receber minha bênção patriarcal?</li>
-      <li>Como você acha que uma bênção patriarcal pode afetar seu relacionamento com o Pai Celestial e Jesus Cristo?</li>
-      <li>Por que você acha que uma declaração de linhagem é uma parte importante da bênção patriarcal?</li>
-    </ul>
+          <div class="cite">
+            <strong>Presidente Russell M. Nelson</strong><br>
+            “[A bênção patriarcal] é preciosa. É uma escritura pessoal para vocês. Nela, sua linhagem especial é declarada. Ela os ajuda a lembrarem de sua ligação com o passado. E vai ajudá-los a perceber seu potencial futuro. Literalmente, você pode reivindicar do Senhor o cumprimento dessas bênçãos por meio de sua fidelidade.”<br>
+            <span class="meta">(“Thanks for the Covenant”, devocional da Universidade Brigham Young, 22 de novembro de 1988, p. 5)</span>
+          </div>
 
-    <h2>Manual Geral</h2>
-    <blockquote>“O bispo ou um conselheiro designado entrevista os membros que desejam receber a bênção patriarcal...” (Manual Geral, itens 18.17; 18.17.1)</blockquote>
+          <div class="cite">
+            <strong>Élder Kazuhiko Yamashita</strong><br>
+            “Leio minha bênção patriarcal com frequência e em espírito de oração; ela sempre me incentiva. Reconheço o que o Senhor espera de mim, e isso me ajuda a me arrepender e a ser humilde. Quando a leio e reflito sobre ela, tenho o desejo de viver dignamente para receber as bênçãos prometidas. (…) Irmãos e irmãs, presto testemunho de que o Pai Celestial e Seu Amado Filho e Primogênito, o Senhor Jesus Cristo, vivem. Eles nos amam. A bênção patriarcal é uma dádiva sagrada dada por Eles. Quando receberem sua bênção, saberão e sentirão como Eles os amam e como Eles Se concentram em vocês individualmente.”<br>
+            <span class="meta">(“Quando receber sua bênção patriarcal”, Liahona, maio de 2023, p. 90)</span>
+          </div>
 
-    <h2>Declaração de Linhagem</h2>
-    <blockquote>“Ao receberem uma declaração de linhagem, vocês saberão que pertencem à casa de Israel...”</blockquote>
+          <div class="cite">
+            <strong>Bonnie H. Cordon</strong><br>
+            “Em uma recente conferência FSY, conheci duas moças que passavam por dificuldades. Ambas mencionaram que haviam se voltado à sua bênção patriarcal para redescobrir o amor do Senhor e Sua orientação para a vida delas pessoalmente. Encontrem sua bênção patriarcal, soprem a poeira se precisarem, mas a estudem com frequência. Se não tiverem uma bênção patriarcal, recebam a sua logo. Não demorem para descobrir o que o Senhor deseja lhes dizer agora sobre quem vocês são.”<br>
+            <span class="meta">(“Acheguem-se a Cristo, mas não sozinhos”, Liahona, novembro de 2021, p. 11)</span>
+          </div>
+
+          <div class="cite">
+            <strong>Rebecca L. Craven</strong><br>
+            “A bênção patriarcal é uma bênção inspirada do Pai Celestial dada por um patriarca ordenado, geralmente de dentro de sua estaca. É uma mensagem pessoal e revelada apenas para você. Sua bênção lhe dará conselhos, advertências, conselhos e promessas que ajudarão a guiar sua vida.”<br>
+            <span class="meta">(“Seu livro de possibilidades”, Força dos Jovens, agosto de 2022, p. 26)</span>
+          </div>
+
+          <div class="cite">
+            <strong>Laudy Ruth Kaouk</strong><br>
+            “Aprendi a recorrer à minha bênção patriarcal sempre que me sinto triste ou solitária. Minha bênção me ajuda a ver meu potencial e o plano específico que Deus traçou para mim... Elas não são mensagens de “adivinhação”; essas bênçãos dizem o que precisamos ouvir. Elas são como uma Liahona para cada um de nós.”<br>
+            <span class="meta">(“Como o sacerdócio abençoa os jovens”, Liahona, maio de 2020, pp. 56–57)</span>
+          </div>
+
+        </article>
+
+        <article>
+          <h3>Manual Geral (procedimento)</h3>
+          <div class="cite">“O bispo ou um conselheiro designado entrevista os membros que desejam receber a bênção patriarcal. Se o membro for digno, o entrevistador prepara uma Recomendação para bênção patriarcal. (…) Depois de receber uma recomendação, o membro entra em contato com o patriarca para agendar um horário a fim de receber a bênção patriarcal. No dia marcado, o membro deve se apresentar ao patriarca em espírito de oração e vestido com roupas dominicais. O membro pode jejuar, mas isso não é uma exigência.”<br>
+            <span class="meta">(Manual Geral, itens 18.17; 18.17.1, ChurchofJesusChrist.org)</span>
+          </div>
+
+        </article>
+
+      </section>
+
+      <aside class="card questions" aria-labelledby="questions-title">
+        <div class="section-title"><h2 id="questions-title">Perguntas relacionadas</h2></div>
+
+        <!-- Link quick-nav -->
+        <p class="muted">Toque/ clique para ir ao grupo de perguntas relacionado a cada citação:</p>
+        <p style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <a class="q-link" href="#q-orientacao">Escrituras — Orientação</a>
+          <a class="q-link" href="#q-bencaos">Bênçãos patriarcais — Geral</a>
+          <a class="q-link" href="#q-linhagem">Declaração de linhagem</a>
+          <a class="q-link" href="#q-pos-estudo">Depois do estudo</a>
+        </p>
+
+        <div class="accordion">
+
+          <div class="acc-item" id="q-orientacao">
+            <button class="acc-btn">Escrituras citadas (D&C 6:14; 42:61; 112:10)</button>
+            <div class="acc-content">
+              <div class="qa">
+                <h4>Quais são alguns aspectos de sua vida nos quais você pode se sentir como a pessoa nesta gravura? Por quê?</h4>
+                <p>Relacionada às escrituras que falam sobre orientação pessoal.</p>
+              </div>
+              <div class="qa">
+                <h4>O que pode nos ajudar a saber o que fazer quando não temos certeza da direção que devemos tomar na vida?</h4>
+                <p>Conectar com D&C 6:14; 42:61; 112:10 (orientação pelo Espírito e revelação).</p>
+              </div>
+              <div class="qa">
+                <h4>Como a lembrança dessas verdades influencia seus sentimentos ou suas atitudes em relação a Deus?</h4>
+                <p>Reflexão pessoal ligada às verdades das escrituras citadas.</p>
+              </div>
+              <div class="qa">
+                <h4>Quais são algumas maneiras pelas quais Deus nos dá orientação para nossa vida?</h4>
+                <p>Pergunta aberta para conectar escrituras e experiências pessoais.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" id="q-bencaos">
+            <button class="acc-btn">Declarações dos líderes sobre bênçãos patriarcais</button>
+            <div class="acc-content">
+              <div class="qa">
+                <h4>O que é uma bênção patriarcal?</h4>
+                <p>Ligada à definição de Rebecca L. Craven e ao Manual.</p>
+              </div>
+              <div class="qa">
+                <h4>De que forma uma bênção patriarcal pode impactar meu relacionamento com o Pai Celestial e Jesus Cristo?</h4>
+                <p>Relacionada aos testemunhos de Yamashita, Nelson e Laudy Ruth Kaouk.</p>
+              </div>
+              <div class="qa">
+                <h4>Como posso me preparar para minha bênção patriarcal?</h4>
+                <p>Relacionada às diretrizes do Manual Geral e sugestões dadas no texto.</p>
+              </div>
+              <div class="qa">
+                <h4>Quando devo receber minha bênção patriarcal?</h4>
+                <p>Pergunta prática que pode se conectar à orientação do bispo e às experiências pessoais.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" id="q-linhagem">
+            <button class="acc-btn">Declaração de linhagem</button>
+            <div class="acc-content">
+              <div class="qa">
+                <h4>Por que você acha que uma declaração de linhagem é uma parte importante da bênção patriarcal?</h4>
+                <p>Relacionado às promessas abraâmicas e à identificação com a casa de Israel (citado de Yamashita).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" id="q-pos-estudo">
+            <button class="acc-btn">Depois do estudo / Reflexão</button>
+            <div class="acc-content">
+              <div class="qa">
+                <h4>O que você aprendeu com seus estudos que achou ser mais útil?</h4>
+                <p>Pergunta de síntese para partilha em grupo.</p>
+              </div>
+              <div class="qa">
+                <h4>Quais foram algumas respostas que você encontrou para suas perguntas?</h4>
+                <p>Explorar descobertas pessoais ou em grupo.</p>
+              </div>
+              <div class="qa">
+                <h4>Como você acha que uma bênção patriarcal pode afetar seu relacionamento com o Pai Celestial e Jesus Cristo?</h4>
+                <p>Convite a testemunhos (sem revelar detalhes da bênção pessoal).</p>
+              </div>
+              <div class="qa">
+                <h4>Pondere sobre os sussurros ou impressões do Espírito sentidas hoje — que orientação você recebeu e como pode agir de acordo com ela?</h4>
+                <p>Atividade de reflexão pessoal e ação.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <footer>
+          <small>Material organizado a partir do texto fornecido — citações e perguntas relacionadas.</small>
+        </footer>
+      </aside>
+
+    </main>
   </div>
+
+  <script>
+    // Simple accordion behavior
+    document.querySelectorAll('.acc-btn').forEach(btn=>{
+      btn.addEventListener('click',e=>{
+        const item = btn.parentElement;
+        const content = item.querySelector('.acc-content');
+        const isOpen = content.style.display === 'block';
+        // close all
+        document.querySelectorAll('.acc-content').forEach(c=>c.style.display='none');
+        if(!isOpen) content.style.display='block';
+        // smooth scroll into view
+        setTimeout(()=>{item.scrollIntoView({behavior:'smooth',block:'center'})},120);
+      });
+    });
+  </script>
 </body>
 </html>
