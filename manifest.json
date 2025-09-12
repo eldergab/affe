@@ -1,21 +1,22 @@
 {
-  "name": "Consorcio AFFE",
-  "short_name": "AFFE",
-  "start_url": "/index.html",
+  "name": "Equipes - Consorcio AFFE",
+  "short_name": "AFFE Equipes",
+  "start_url": "/equipes/index.html",
+  "scope": "/equipes/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#16a34a",
-  "description": "Aplicativo Progressivo da Consorcio AFFE",
+  "theme_color": "#2d8fdd",
+  "description": "Aplicativo Progressivo das Equipes da Consorcio AFFE",
   "icons": [
     {
-      "src": "assets/icons/icon-192x192.png",
+      "src": "assets/images/family-project.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
-      "src": "assets/icons/icon-512x512.png",
+      "src": "assets/images/recycling.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     }
   ]
 }
