@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Equipes - Consorcio AFFE</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2d8fdd" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f0f4f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: #2d8fdd;
+    }
+    .teams-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      width: 100%;
+      max-width: 800px;
+    }
+    .team-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .team-image {
+      width: 100%;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      height: 200px;
+      object-fit: cover;
+    }
+    .team-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    @media (max-width: 640px) {
+      .team-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Equipes - Consorcio AFFE</h1>
+  <div class="teams-container">
+    <a href="airsoft_participantes.html" class="team-card" aria-label="Equipe Airsoft">
+      <img src="images/airsoft_team.png" alt="Equipe Airsoft" class="team-image" />
+      <div class="team-name">Airsoft</div>
+    </a>
+    <a href="paintball_participantes.html" class="team-card" aria-label="Equipe Paintball">
+      <img src="images/paintball_team.png" alt="Equipe Paintball" class="team-image" />
+      <div class="team-name">Paintball</div>
+    </a>
+  </div>
+
+  <script>
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registrado com sucesso:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Falha ao registrar Service Worker:', error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
