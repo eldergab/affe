@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel Administrativo - Consorcio AFFE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2d8fdd;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #2d8fdd;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #e0f0ff;
+    }
+    tr:hover {
+      background-color: #f5faff;
+    }
+    button {
+      background-color: #2d8fdd;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1b6fb8;
+    }
+    .logout-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #e53e3e;
+    }
+    .stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .stat-card h3 {
+      font-size: 2rem;
+      margin: 0;
+      color: #2d8fdd;
+    }
+    .stat-card p {
+      margin: 0.5rem 0 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Painel Administrativo - Consorcio AFFE</h1>
+    <button class="logout-btn" onclick="logout()">Sair</button>
+  </header>
+  <main>
+    <section id="statsSection">
+      <h2>Estatísticas</h2>
+      <div class="stats">
+        <div class="stat-card">
+          <h3 id="totalTeams">0</h3>
+          <p>Total de Equipes</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="totalParticipants">0</h3>
+          <p>Total de Participantes</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="teamsSection">
+      <h2>Gerenciamento de Equipes</h2>
+      <table id="teamsTable">
+        <thead>
+          <tr>
+            <th>Nome da Equipe</th>
+            <th>Líder</th>
+            <th>WhatsApp</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Equipes serão listadas aqui -->
+        </tbody>
+      </table>
+    </section>
+
+    <section id="participantsSection">
+      <h2>Gerenciamento de Participantes</h2>
+      <table id="participantsTable">
+        <thead>
+          <tr>
+            <th>Nome Completo</th>
+            <th>Apelido</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Equipe</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Participantes serão listados aqui -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    // Configuração Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDplkg8QESxOZB4o6sL0dm8_H8sUza67nM",
+      authDomain: "consorcio-84d36.firebaseapp.com",
+      projectId: "consorcio-84d36",
+      storageBucket: "consorcio-84d36.appspot.com",
+      messagingSenderId: "411546295386",
+      appId: "1:411546295386:web:1730f62a37a368bc630c63",
+      measurementId: "G-6XSKZD2Y47"
+    };
+
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // Controle de autenticação simples (exemplo)
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "../index.html"; // Redireciona para página inicial se não autenticado
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    }
+
+    // Função para carregar estatísticas
+    async function loadStats() {
+      const teamsSnapshot = await db.collection('airsoftTeams').get();
+      const paintballTeamsSnapshot = await db.collection('paintballTeams').get();
+      const airsoftParticipantsSnapshot = await db.collection('airsoftParticipants').get();
+      const paintballParticipantsSnapshot = await db.collection('paintballParticipants').get();
+
+      const totalTeams = teamsSnapshot.size + paintballTeamsSnapshot.size;
+      const totalParticipants = airsoftParticipantsSnapshot.size + paintballParticipantsSnapshot.size;
+
+      document.getElementById('totalTeams').textContent = totalTeams;
+      document.getElementById('totalParticipants').textContent = totalParticipants;
+    }
+
+    // Função para carregar equipes
+    async function loadTeams() {
+      const teamsTableBody = document.querySelector('#teamsTable tbody');
+      teamsTableBody.innerHTML = '';
+
+      const airsoftTeamsSnapshot = await db.collection('airsoftTeams').get();
+      airsoftTeamsSnapshot.forEach(doc => {
+        const team = doc.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${team.name}</td>
+          <td>${team.leader}</td>
+          <td>${team.whatsapp}</td>
+          <td>
+            <button onclick="deleteTeam('${doc.id}', 'airsoftTeams')">Excluir</button>
+          </td>
+        `;
+        teamsTableBody.appendChild(tr);
+      });
+
+      const paintballTeamsSnapshot = await db.collection('paintballTeams').get();
+      paintballTeamsSnapshot.forEach(doc => {
+        const team = doc.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${team.name}</td>
+          <td>${team.leader}</td>
+          <td>${team.whatsapp}</td>
+          <td>
+            <button onclick="deleteTeam('${doc.id}', 'paintballTeams')">Excluir</button>
+          </td>
+        `;
+        teamsTableBody.appendChild(tr);
+      });
+    }
+
+    // Função para carregar participantes
+    async function loadParticipants() {
+      const participantsTableBody = document.querySelector('#participantsTable tbody');
+      participantsTableBody.innerHTML = '';
+
+      const airsoftParticipantsSnapshot = await db.collection('airsoftParticipants').get();
+      airsoftParticipantsSnapshot.forEach(doc => {
+        const participant = doc.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${participant.fullName}</td>
+          <td>${participant.nickname}</td>
+          <td>${participant.phone}</td>
+          <td>${participant.email}</td>
+          <td>${participant.teamName || participant.teamId || ''}</td>
+          <td>
+            <button onclick="deleteParticipant('${doc.id}', 'airsoftParticipants')">Excluir</button>
+          </td>
+        `;
+        participantsTableBody.appendChild(tr);
+      });
+
+      const paintballParticipantsSnapshot = await db.collection('paintballParticipants').get();
+      paintballParticipantsSnapshot.forEach(doc => {
+        const participant = doc.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${participant.fullName}</td>
+          <td>${participant.nickname}</td>
+          <td>${participant.phone}</td>
+          <td>${participant.email}</td>
+          <td>${participant.teamName || participant.teamId || ''}</td>
+          <td>
+            <button onclick="deleteParticipant('${doc.id}', 'paintballParticipants')">Excluir</button>
+          </td>
+        `;
+        participantsTableBody.appendChild(tr);
+      });
+    }
+
+    // Função para excluir equipe
+    async function deleteTeam(id, collectionName) {
+      if (confirm('Tem certeza que deseja excluir esta equipe?')) {
+        await db.collection(collectionName).doc(id).delete();
+        loadTeams();
+        loadStats();
+      }
+    }
+
+    // Função para excluir participante
+    async function deleteParticipant(id, collectionName) {
+      if (confirm('Tem certeza que deseja excluir este participante?')) {
+        await db.collection(collectionName).doc(id).delete();
+        loadParticipants();
+        loadStats();
+      }
+    }
+
+    // Inicialização
+    loadStats();
+    loadTeams();
+    loadParticipants();
+  </script>
+</body>
+</html>
