@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airsoft: Mais que um Jogo, um Aliado da Mente</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cor-fundo: #1e1e1e;
+            --cor-texto: #e0e0e0;
+            --cor-destaque: #00FF7F; /* Verde Vibrante */
+            --cor-secundaria: #333;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #2a2a2a;
+            border-bottom: 2px solid var(--cor-destaque);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cor-destaque);
+            margin-bottom: 0.5rem;
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--cor-secundaria);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--cor-destaque);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        ul li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        ul li::before {
+            content: "🔫";
+            position: absolute;
+            left: 0;
+            color: var(--cor-destaque);
+        }
+
+        .lista-beneficios ul li::before {
+            content: "✔";
+        }
+        
+        .destaque {
+            font-weight: bold;
+            color: var(--cor-destaque);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #2a2a2a;
+            border-top: 2px solid var(--cor-destaque);
+        }
+
+        .cvv-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cor-destaque);
+            margin-top: 1rem;
+            display: inline-block;
+            padding: 1rem;
+            border: 2px solid var(--cor-destaque);
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .cvv-number:hover {
+            transform: scale(1.05);
+        }
+
+        /* Otimização para telas maiores */
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+
+            header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Airsoft: Um Esporte que Transforma</h1>
+            <h2>A Conexão entre Ação, Estratégia e o Bem-Estar Mental</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="o-que-e">
+            <h2>O Que É Airsoft? As Regras do Jogo e o Código de Honra</h2>
+            <p>O airsoft é um esporte de ação e estratégia que simula combates de forma segura. Em vez de balas, as armas disparam pequenas esferas plásticas chamadas <span class="destaque">BBs</span>. A base do esporte é a <span class="destaque">honestidade e o código de honra</span> dos jogadores, pois cada um deve se declarar "atingido" quando é acertado.</p>
+            <ul>
+                <li><span class="destaque">Equipamento Essencial:</span> A proteção dos olhos é inegociável. Use óculos ou máscaras de segurança.</li>
+                <li><span class="destaque">Regras Básicas:</span> Ao ser atingido, grite <span class="destaque">"hit"</span> ou <span class="destaque">"morto"</span> e levante a mão. Não atire em um jogador de uma distância muito curta.</li>
+                <li><span class="destaque">Modos de Jogo:</span> Existem diversos, como o clássico <span class="destaque">Deathmatch</span>, a estratégica <span class="destaque">Captura de Bandeira</span> e as detalhadas simulações militares.</li>
+            </ul>
+        </section>
+
+        <section id="saude-mental">
+            <h2>Um Aliado no Combate à Depressão e Pensamentos Suicidas</h2>
+            <p>Para quem já busca acompanhamento profissional, o airsoft não é uma cura, mas um <span class="destaque">complemento poderoso</span> que atua em diversas frentes para melhorar a saúde mental e o bem-estar.</p>
+            
+            <h3>O Foco no Presente</h3>
+            <p>Durante o jogo, a mente precisa estar 100% focada na ação, desviando a atenção dos pensamentos intrusivos e negativos. Essa imersão total oferece uma pausa muito necessária e uma sensação de controle.</p>
+
+            <h3>Comunidade e Conexão Social</h3>
+            <p>O isolamento é um dos principais desafios da depressão. O airsoft oferece um ambiente para construir <span class="destaque">laços de camaradagem e pertencimento</span>, onde cada um se sente valorizado e parte de uma equipe.</p>
+            
+            <h3>Exercício Físico e Autoconfiança</h3>
+            <p>A atividade física libera endorfinas, elevando o humor. Pequenas vitórias no jogo, como cumprir um objetivo ou ajudar um colega, fortalecem a <span class="destaque">autoestima</span> e a sensação de realização.</p>
+        </section>
+
+        <section class="lista-beneficios">
+            <h2>Benefícios Além da Depressão</h2>
+            <ul>
+                <li><span class="destaque">Ansiedade:</span> O esporte ajuda a quebrar o ciclo de preocupações, forçando a mente a se concentrar no presente e a lidar com a adrenalina de forma controlada.</li>
+                <li><span class="destaque">TDAH:</span> A necessidade de foco e a liberação de energia física fazem do airsoft uma excelente ferramenta para canalizar a hiperatividade e treinar a concentração.</li>
+                <li><span class="destaque">TEPT:</span> Em um ambiente seguro, a simulação pode ser uma forma de terapia de exposição, ajudando a reprocessar memórias traumáticas e a reconstruir a confiança.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h2>Uma Mensagem Importante</h2>
+            <p>A participação no airsoft é um auxílio, mas <span class="destaque">jamais substitui o tratamento médico e psicológico</span>. Se você ou alguém que você conhece precisa de ajuda, procure um profissional de saúde. E lembre-se, você não está sozinho.</p>
+            <p>Para apoio emocional gratuito e sigiloso, ligue para o:</p>
+            <a href="tel:188" class="cvv-number">188</a>
+        </div>
+    </footer>
+</body>
+</html>
