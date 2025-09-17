@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         :root {
             --cor-fundo: #1e1e1e;
@@ -147,10 +149,27 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Airsoft: Um Esporte que Transforma</h1>
-            <h2>A Conexão entre Ação, Estratégia e o Bem-Estar Mental</h2>
+    <header class="bg-green-700 text-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center justify-between py-4">
+                <div class="logo">
+                    <h1 class="text-xl font-bold">Consorcio AFFE</h1>
+                    <p class="text-sm">A Família Feliz</p>
+                </div>
+                <nav class="main-nav mt-4 md:mt-0">
+                    <ul class="flex flex-wrap space-x-6">
+                        <li><a href="index.html" class="hover:underline">Home</a></li>
+                        <li><a href="sobre.html" class="hover:underline">Sobre</a></li>
+                        <li><a href="projetos.html" class="hover:underline">Projetos</a></li>
+                        <li><a href="participar.html" class="hover:underline">Participar</a></li>
+                        <li><a href="noticias.html" class="hover:underline">Notícias</a></li>
+                        <li><a href="contato.html" class="hover:underline">Contato</a></li>
+                    </ul>
+                </nav>
+                <div class="member-access mt-4 md:mt-0">
+                    <a href="cooperados.html" class="bg-white text-green-700 font-medium py-2 px-4 rounded hover:bg-gray-100 transition">Área do Associado</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -189,12 +208,30 @@
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <h2>Uma Mensagem Importante</h2>
-            <p>A participação no airsoft é um auxílio, mas <span class="destaque">jamais substitui o tratamento médico e psicológico</span>. Se você ou alguém que você conhece precisa de ajuda, procure um profissional de saúde. E lembre-se, você não está sozinho.</p>
-            <p>Para apoio emocional gratuito e sigiloso, ligue para o:</p>
-            <a href="tel:188" class="cvv-number">188</a>
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="footer-about">
+                    <h3 class="text-lg font-bold mb-4">Consorcio AFFE</h3>
+                    <p>A Família Feliz - Promovendo sustentabilidade e desenvolvimento social</p>
+                </div>
+                <div class="footer-links">
+                    <h3 class="text-lg font-bold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="sobre.html" class="hover:underline">Sobre Nós</a></li>
+                        <li><a href="projetos.html" class="hover:underline">Nossos Projetos</a></li>
+                        <li><a href="participar.html" class="hover:underline">Como Participar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="text-lg font-bold mb-4">Contato</h3>
+                    <p><i class="fas fa-envelope mr-2"></i> contato@consorcioaffe.org.br</p>
+                    <p class="mt-2"><i class="fas fa-phone mr-2"></i> (62) 92002-6981</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+                <p>&copy; 2023 Consorcio AFFE. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 </body>
