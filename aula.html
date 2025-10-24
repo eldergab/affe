@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Farol Missionário — Amar, Compartilhar e Convidar</title>
+<style>
+  :root{
+    --bg:#f6f8fa; --card:#fff; --muted:#6b7280; --accent:#0b5bd7;
+    --success:#10b981;
+  }
+  body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);
+    margin:0; padding:24px; color:#0f172a;
+  }
+  .container{max-width:920px;margin:0 auto;}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+  header h1{font-size:1.4rem;margin:0;}
+  .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(12,13,20,0.06);margin-bottom:16px;}
+  .meta{color:var(--muted);font-size:0.9rem;margin-top:6px;}
+  .scenario{display:flex;flex-direction:column;gap:12px;}
+  .question{font-weight:600;}
+  .choices{display:flex;gap:10px;flex-wrap:wrap;}
+  button.choice{
+    background:#f8fafc;border:1px solid #e6eef8;padding:10px 12px;border-radius:10px;cursor:pointer;
+    min-width:160px;text-align:left;
+  }
+  button.choice:hover{transform:translateY(-2px)}
+  .footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;}
+  .progress{height:10px;background:#e6eef8;border-radius:999px;overflow:hidden;flex:1;margin-right:12px;}
+  .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);width:0%;}
+  .score{font-weight:700;}
+  .small{font-size:0.88rem;color:var(--muted);}
+  .result{padding:14px;border-radius:10px;margin-top:12px;}
+  .result.good{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--success);}
+  .result.bad{background:rgba(240,82,82,0.06);border:1px solid rgba(240,82,82,0.12);color:#ef4444;}
+  .topbar{display:flex;gap:8px;align-items:center;}
+  .timer{font-weight:700;color:#ef4444;}
+  .invite-area{display:flex;gap:8px;align-items:center;margin-top:10px;}
+  .invite-text{flex:1;padding:10px;border-radius:8px;border:1px dashed #dbeafe;background:#fcfcff;}
+  .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px;border:0;cursor:pointer}
+  .muted-btn{background:#fff;border:1px solid #e6eef8;padding:8px 12px;border-radius:10px;cursor:pointer}
+  footer small{display:block;color:var(--muted);margin-top:8px;text-align:center;}
+  @media (max-width:560px){
+    button.choice{min-width:100%}
+    .footer{flex-direction:column;align-items:stretch}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="topbar">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%230b5bd7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2l3 7 7 .5-5.5 4 2 7L12 17l-6.5 4 2-7L2 9.5 9 9z'/></svg>" alt="farol" style="width:48px;height:48px;border-radius:10px;background:#fff;padding:6px;box-shadow:0 6px 16px rgba(11,91,215,0.08)">
+    </div>
+    <div>
+      <h1>Farol Missionário</h1>
+      <div class="meta">Jogo prático: escolha ações que demonstrem Amar • Compartilhar • Convidar</div>
+    </div>
+  </header>
+
+  <div id="game" class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div class="score">Pontos: <span id="score">0</span></div>
+      <div class="small">Rodada <span id="round">1</span>/<span id="total">8</span></div>
+    </div>
+
+    <div class="scenario">
+      <div class="question" id="question">Carregando...</div>
+      <div class="small" id="hint">Escolha a resposta que melhor demonstra amor, compartilhar ou convidar.</div>
+
+      <div class="choices" id="choices"></div>
+
+      <div id="feedback"></div>
+
+      <div class="footer">
+        <div style="display:flex;align-items:center;gap:12px;flex:1">
+          <div class="progress" title="Progresso">
+            <i id="progressbar"></i>
+          </div>
+          <div class="small">Tempo: <span id="time">15</span>s</div>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="muted-btn" id="skipBtn">Pular</button>
+          <button class="btn" id="nextBtn" disabled>Próxima</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inviteCard" class="card" style="display:none">
+    <h3>Convite desbloqueado</h3>
+    <p class="small">Copie e personalize este convite para convidar alguém a "vir e ver".</p>
+    <div class="invite-area">
+      <textarea id="inviteText" class="invite-text" rows="3">Olá! Gostaria de te convidar para assistir a uma reunião/atividade comigo. Acho que você pode gostar — posso te mostrar algo que tem me ajudado bastante. Quer ir comigo no domingo?</textarea>
+      <button class="btn" id="copyInvite">Copiar</button>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button class="muted-btn" id="personalize">Personalizar</button>
+      <button class="muted-btn" id="resetGame">Recomeçar</button>
+    </div>
+  </div>
+
+  <footer style="margin-top:16px">
+    <small>Baseado na lição "Amar, compartilhar e convidar" (Doutrina e Convênios — Manual do Professor do Seminário). Jogo educativo para aplicar princípios em situações reais.</small>
+  </footer>
+</div>
+
+<script>
+/* --- Dados do jogo: cenários e opções ---
+   Cada cenário: texto, opções (texto, tipo), melhorTipo ( 'amar'|'compartilhar'|'convidar' ), explicação.
+*/
+const scenarios = [
+  {
+    text: "Você percebe que um colega da escola está sempre sozinho no recreio e parece triste. O que você faz?",
+    options: [
+      { t:"Levar um lanche e sentar com ele; perguntar como está.", type:"amar" },
+      { t:"Falar com ele sobre sua fé e convidá-lo para um estudo de escritura agora.", type:"convidar" },
+      { t:"Postar uma foto nas redes dizendo como a escola é boa.", type:"compartilhar" }
+    ],
+    best: "amar",
+    explain: "Demonstrar amor com uma ação compassiva abre o coração e constrói confiança — muitas vezes é o primeiro passo."
+  },
+  {
+    text: "Um amigo pergunta casualmente sobre o que você fez no fim de semana. Ele parece curioso. O que você responde?",
+    options: [
+      { t:"Dizer: 'Fui à igreja e participei de um serviço; tem me ajudado muito.'", type:"compartilhar" },
+      { t:"Ignorar e falar de outro assunto.", type:"amar" },
+      { t:"Convidá-lo imediatamente a ser batizado.", type:"convidar" }
+    ],
+    best: "compartilhar",
+    explain: "Compartilhar naturalmente (história pessoal) é efetivo quando alguém demonstra curiosidade — sem forçar o convite."
+  },
+  {
+    text: "Sua família está organizando uma reunião sacramental especial. Você vê um vizinho que pode se interessar. O que fazer?",
+    options: [
+      { t:"Convidá-lo pessoalmente para assistir uma reunião e oferecer carona.", type:"convidar" },
+      { t:"Falar bem da reunião nas redes sociais, sem abordá-lo.", type:"compartilhar" },
+      { t:"Apenas esperar que ele pergunte se quiser ir.", type:"amar" }
+    ],
+    best: "convidar",
+    explain: "Convites específicos e práticos (oferecer carona, data/hora) aumentam muito a probabilidade de participação."
+  },
+  {
+    text: "Você tem uma experiência tocante que fortaleceu sua fé. Um colega demonstra interesse em aprender mais. O que fazer?",
+    options: [
+      { t:"Contar sua experiência e como a escritura ajudou você.", type:"compartilhar" },
+      { t:"Dar-lhe um livro religioso sem explicar.", type:"convidar" },
+      { t:"Ajudar em algo prático que ele precise naquele momento.", type:"amar" }
+    ],
+    best: "compartilhar",
+    explain: "Relatar experiência pessoal é uma forma poderosa de compartilhar e testemunhar sem pressionar."
+  },
+  {
+    text: "Há uma oportunidade de servir em um projeto na comunidade — seu vizinho demonstrou insegurança sobre participar. O que você faz?",
+    options: [
+      { t:"Convidá-lo a ir com você e dizer que vai cuidar dele lá.", type:"convidar" },
+      { t:"Falar sobre o projeto em voz alta para outras pessoas, esperando que ele ouça.", type:"compartilhar" },
+      { t:"Ir primeiro ajudar e depois chamá-lo para o próximo.", type:"amar" }
+    ],
+    best: "amar",
+    explain: "Servir primeiro mostra amor e cria uma base prática para futuras conversas e convites."
+  },
+  {
+    text: "Um conhecido te pergunta por que você frequenta sua igreja. Melhor resposta:",
+    options: [
+      { t:"Explicar brevemente o que significa para você e oferecer para conversarem mais.", type:"compartilhar" },
+      { t:"Dizer só 'porque é tradição' e não entrar em detalhes.", type:"amar" },
+      { t:"Convidá-lo para se batizar agora.", type:"convidar" }
+    ],
+    best: "compartilhar",
+    explain: "Responder com sinceridade e disponibilidade para continuar a conversa é efetivo para despertar interesse."
+  },
+  {
+    text: "Você nota um colega ansioso antes de uma prova. Ele gosta de conversar com você. Qual atitude demonstra amor cristão agora?",
+    options: [
+      { t:"Oferecer ajuda com o estudo e encorajar.", type:"amar" },
+      { t:"Dizer que vai orar por ele e já convidá-lo para a próxima atividade da igreja.", type:"compartilhar" },
+      { t:"Mandar um link de palestra religiosa sem explicar.", type:"compartilhar" }
+    ],
+    best: "amar",
+    explain: "Ajuda prática e empatia demonstram amor — muitas pessoas sentem o evangelho pelo cuidado recebido."
+  },
+  {
+    text: "Depois de um bom diálogo, a pessoa diz 'quero saber mais'. O passo mais adequado é:",
+    options: [
+      { t:"Convidar para 'vir e ver' (uma reunião, atividade ou mostrar um recurso).", type:"convidar" },
+      { t:"Ficar em silêncio esperando que ela peça algo.", type:"amar" },
+      { t:"Enviar um texto longo com doutrinas complexas.", type:"compartilhar" }
+    ],
+    best: "convidar",
+    explain: "Fazer um convite específico para 'vir e ver' dá um próximo passo concreto na conversão."
+  }
+];
+
+let round=0, score=0, timeLeft=15, timer=null;
+const total = scenarios.length;
+document.getElementById('total').textContent = total;
+
+function startRound(){
+  if(round >= total){
+    endGame();
+    return;
+  }
+  const s = scenarios[round];
+  document.getElementById('round').textContent = (round+1);
+  document.getElementById('question').textContent = s.text;
+  document.getElementById('hint').textContent = 'Escolha a ação que melhor representa Amar, Compartilhar ou Convidar.';
+  const choicesDiv = document.getElementById('choices');
+  choicesDiv.innerHTML = '';
+  s.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.innerHTML = `<strong>${opt.t}</strong><div class="small" style="margin-top:6px">Tipo: ${opt.type.toUpperCase()}</div>`;
+    btn.onclick = () => selectChoice(idx);
+    choicesDiv.appendChild(btn);
+  });
+  document.getElementById('feedback').innerHTML='';
+  document.getElementById('nextBtn').disabled = true;
+  // progress bar
+  const progressBar = document.getElementById('progressbar');
+  progressBar.style.width = `${(round/total)*100}%`;
+  // timer
+  timeLeft = 15;
+  document.getElementById('time').textContent = timeLeft;
+  if(timer) clearInterval(timer);
+  timer = setInterval(()=>{
+    timeLeft--;
+    document.getElementById('time').textContent = timeLeft;
+    if(timeLeft <= 0){
+      clearInterval(timer);
+      // auto-skip as mistake
+      showFeedback(null, 'timeout');
+    }
+  },1000);
+}
+
+function selectChoice(idx){
+  if(timer) clearInterval(timer);
+  const s = scenarios[round];
+  const chosen = s.options[idx];
+  const isBest = chosen.type === s.best;
+  showFeedback(chosen, isBest ? 'correct' : 'wrong');
+}
+
+function showFeedback(choice, status){
+  const fb = document.getElementById('feedback');
+  if(status === 'timeout'){
+    fb.innerHTML = `<div class="result bad"><strong>Tempo esgotado.</strong> A oportunidade de agir pode ser rápida; considere responder com amor ou um convite específico na próxima vez.</div>`;
+    document.getElementById('nextBtn').disabled = false;
+    return;
+  }
+  if(status === 'correct'){
+    score += 10;
+    document.getElementById('score').textContent = score;
+    fb.innerHTML = `<div class="result good"><strong>Certo!</strong> ${scenarios[round].explain}</div>`;
+  } else {
+    // wrong
+    fb.innerHTML = `<div class="result bad"><strong>Resposta alternativa.</strong> ${scenarios[round].explain}</div>`;
+    // smaller score penalty
+    score = Math.max(0, score - 2);
+    document.getElementById('score').textContent = score;
+  }
+  document.getElementById('nextBtn').disabled = false;
+  // If score threshold reached, unlock invite
+  if(score >= 50){
+    unlockInvite();
+  }
+}
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  round++;
+  startRound();
+});
+
+document.getElementById('skipBtn').addEventListener('click', ()=>{
+  if(timer) clearInterval(timer);
+  round++;
+  startRound();
+});
+
+document.getElementById('copyInvite').addEventListener('click', ()=>{
+  const txt = document.getElementById('inviteText').value;
+  navigator.clipboard.writeText(txt).then(()=> {
+    alert('Convite copiado para a área de transferência. Personalize antes de enviar!');
+  });
+});
+
+document.getElementById('personalize').addEventListener('click', ()=>{
+  const area = document.getElementById('inviteText');
+  const newText = prompt('Personalize o convite:', area.value);
+  if(newText !== null) area.value = newText;
+});
+
+document.getElementById('resetGame').addEventListener('click', ()=>{
+  location.reload();
+});
+
+function endGame(){
+  if(timer) clearInterval(timer);
+  document.getElementById('game').style.display = 'none';
+  document.getElementById('inviteCard').style.display = 'block';
+  document.getElementById('inviteText').value = generateInviteByScore();
+  // show final progress full
+  document.getElementById('progressbar').style.width = '100%';
+}
+
+function unlockInvite(){
+  // show invite card but keep playing possible
+  document.getElementById('inviteCard').style.display = 'block';
+  document.getElementById('inviteText').value = generateInviteByScore();
+}
+
+function generateInviteByScore(){
+  // customize invite text by score ranges
+  if(score >= 80) return "Olá! Eu realmente aprecio nossas conversas. Gostaria de te convidar para ir comigo a uma reunião/atividade no domingo — posso te levar. Que tal?";
+  if(score >= 50) return "Oi! Tenho participado de algumas atividades que têm me ajudado muito. Quer ir comigo a uma reunião neste fim de semana para ver do que se trata?";
+  return "Olá! Tenho feito coisas que têm sido importantes para mim. Se quiser, posso te mostrar mais — que tal irmos juntos a uma reunião ou atividade?";
+}
+
+// iniciar
+startRound();
+</script>
+</body>
+</html>
