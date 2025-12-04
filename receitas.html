@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pacotes — Receitas & Plano de Produção</title>
+  <meta name="description" content="Receitas, produtos para venda, kits sociais e plano de produção para legumes (batata, tomate, abobrinha, jiló e chuchu)." />
+  <style>
+    :root{
+      --bg:#0f1724; /* dark navy */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#2b9bf0; /* azul pedido pelo usuário */
+      --accent-2:#22c55e;
+      --glass: rgba(255,255,255,0.03);
+      --maxw:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071223 0%, #0b1b2b 100%);color:#e6eef6}
+    a{color:var(--accent)}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 6px 18px rgba(43,155,240,0.12)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:14px}
+
+    nav.top{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--accent);cursor:pointer;font-weight:600;font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    /* main content */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
+    h2{margin:0 0 8px 0;font-size:16px}
+    .subtitle{color:var(--muted);font-size:13px;margin-bottom:12px}
+
+    /* accordion */
+    .accordion .item{border-radius:10px;overflow:hidden;margin-bottom:10px;border:1px solid rgba(255,255,255,0.03)}
+    .item button{width:100%;text-align:left;padding:12px 16px;border:none;background:transparent;color:inherit;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+    .item button h3{margin:0;font-size:15px}
+    .item .panel{padding:12px 16px;border-top:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg, rgba(255,255,255,0.005), transparent)}
+
+    /* tables */
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:8px 10px;text-align:left}
+    th{color:var(--muted);font-size:13px}
+    tr + tr td{border-top:1px dashed rgba(255,255,255,0.03)}
+
+    /* product cards */
+    .products{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media (max-width:700px){.products{grid-template-columns:1fr}}
+    .prod{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+    .prod h4{margin:0 0 6px 0}
+    .tag{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);font-size:12px;color:var(--muted)}
+
+    /* sidebar */
+    aside.card{position:sticky;top:20px;height:max-content}
+    .mini{font-size:13px;color:var(--muted);margin-bottom:12px}
+
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* print */
+    @media print{
+      body{background:white;color:black}
+      .wrap{max-width:800px}
+      nav, .btn{display:none}
+    }
+
+    /* micro interactions */
+    .chev{transition:transform .2s ease}
+    .chev.open{transform:rotate(180deg)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">SC</div>
+      <div>
+        <h1>Pacotes: Receitas, Produtos e Plano de Produção</h1>
+        <p class="lead">Compilado completo para usar com doações de batata, tomate, abobrinha, jiló e chuchu — pronto para imprimir e aplicar.</p>
+      </div>
+    </header>
+
+    <nav class="top">
+      <button class="btn" onclick="expandAll(true)">Expandir tudo</button>
+      <button class="btn" onclick="expandAll(false)">Fechar tudo</button>
+      <a class="btn" href="#imprimir" onclick="window.print()">Imprimir</a>
+    </nav>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <h2>Conteúdo</h2>
+          <p class="subtitle">Clique em cada item para abrir os detalhes. As seções incluem receitas, produtos para venda, kits comunitários e plano de produção.</p>
+
+          <div class="accordion" id="accordion">
+            <!-- Pacote 1 -->
+            <div class="item">
+              <button aria-expanded="false" onclick="toggle(event)">
+                <h3>Pacote 1 — Receitas fáceis (12 receitas)</h3>
+                <span class="chev">▾</span>
+              </button>
+              <div class="panel" hidden>
+                <h4>Resumo das Receitas</h4>
+                <p class="mini">Cada receita traz rendimento aproximado, ingredientes básicos e dicas de conservação.</p>
+                <div>
+                  <h5>Molho de Tomate Caseiro</h5>
+                  <p>Rendimento: 1 kg tomate → ~600 ml. Ingredientes: tomate, cebola, alho, sal, açúcar, óleo. Conservação: geladeira 5 dias / congelado 3 meses.</p>
+
+                  <h5>Tomate Seco</h5>
+                  <p>Rendimento: 1 kg → ~250 g. Corte, salgue, asse em baixa temperatura até desidratar. Guarde em azeite.</p>
+
+                  <h5>Batata Rústica</h5>
+                  <p>Corte em gomos, tempere com alho, páprica, sal e asse. Rende várias porções por quilo.</p>
+
+                  <h5>Purê de Batata</h5>
+                  <p>Cozinhar, amassar e finalizar com manteiga e leite. Rende ~5 porções/kg.</p>
+
+                  <h5>Nhoque Econômico</h5>
+                  <p>1 kg de batata rende ~1,5 kg de massa. Misture com farinha e ovo; modele e cozinhe.</p>
+
+                  <h5>Abobrinha Refogada e Recheada</h5>
+                  <p>Refogado simples; para rechear use carne, frango, soja ou legumes.</p>
+
+                  <h5>Picles de Legumes</h5>
+                  <p>Abobrinha, chuchu e outros em conserva com vinagre, sal e açúcar — rápido e com boa durabilidade.</p>
+
+                  <h5>Jiló ao Molho e Antepasto</h5>
+                  <p>Remova amargor com sal, refogue e junte ao molho de tomate. Antepasto: reduzir até virar pasta.</p>
+
+                  <h5>Chuchu Cremoso</h5>
+                  <p>Chuchu cozido e misturado com creme (ou purê cremoso) — bom para vender ou doar.</p>
+
+                  <h5>Sopa Mista Congelável</h5>
+                  <p>Use batata, abobrinha, chuchu e tomates; cozinhe e bata metade para dar corpo. Porções fáceis de congelar.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pacote 2 -->
+            <div class="item">
+              <button aria-expanded="false" onclick="toggle(event)">
+                <h3>Pacote 2 — Produtos para vender (custos & embalagens)</h3>
+                <span class="chev">▾</span>
+              </button>
+              <div class="panel" hidden>
+                <p class="mini">Tabela com custo estimado, preço sugerido e embalagem.</p>
+                <div class="products">
+                  <div class="prod">
+                    <h4>Conserva de Legumes</h4>
+                    <p class="tag">Custo: R$2,00 | Venda: R$7–10 | Pote 300 ml</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Geleia de Tomate</h4>
+                    <p class="tag">Custo: R$3,00 | Venda: R$12–15 | Pote 250–300 ml</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Tomate Pelado em Vidro</h4>
+                    <p class="tag">Custo: R$2,80 | Venda: R$8–12 | Vidro esterilizado</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Ratatouille Pronto</h4>
+                    <p class="tag">Custo: R$3,00 | Venda: R$10 | Embalagem térmica ou pote</p>
+                  </div>
+
+                  <div class="prod">
+                    <h4>Mix de Legumes (congelado)</h4>
+                    <p class="tag">Custo: R$1,50 | Venda: R$5–6 | Saco 500 g</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Legumes Higienizados</h4>
+                    <p class="tag">Custo: R$1,00 | Venda: R$4–5 | Pacote 500 g</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Batata Temperada Pré-cozida</h4>
+                    <p class="tag">Custo: R$1,80 | Venda: R$6 | Bandeja</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Chips de Jiló</h4>
+                    <p class="tag">Custo: R$2,00 | Venda: R$8 | Saquinho 70–120 g</p>
+                  </div>
+                  <div class="prod">
+                    <h4>Antepasto de Abobrinha</h4>
+                    <p class="tag">Custo: R$3,00 | Venda: R$10–12 | Pote 300 ml</p>
+                  </div>
+                </div>
+
+                <h5 style="margin-top:12px">Dicas Rápidas</h5>
+                <ul style="color:var(--muted);margin-top:6px">
+                  <li>Use rótulos com data e ingredientes. Preferir embalagens recicláveis.</li>
+                  <li>Considere preços sociais (descontos para instituição) e preço de mercado local.</li>
+                  <li>Ofereça amostras e combos (ex.: conserva + geleia).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Pacote 3 -->
+            <div class="item">
+              <button aria-expanded="false" onclick="toggle(event)">
+                <h3>Pacote 3 — Kit Comunidade / Ação Social</h3>
+                <span class="chev">▾</span>
+              </button>
+              <div class="panel" hidden>
+                <p class="mini">Composição, receita impressa e quantidade ideal por família.</p>
+                <h4>Composição do Kit Básico</h4>
+                <ul style="color:var(--muted)">
+                  <li>1 kg de batata</li>
+                  <li>1 pacote de legumes picados (abobrinha + chuchu)</li>
+                  <li>1 pote de molho de tomate</li>
+                  <li>1 refogado pronto (abobrinha ou jiló)</li>
+                  <li>1 receita simples impressa (sugestão de preparo)</li>
+                </ul>
+                <h5>Receita: Refeição Fácil para Família</h5>
+                <ol style="color:var(--muted)">
+                  <li>Cozinhe as batatas (purê) — 20 min.</li>
+                  <li>Refogue os legumes picados com alho e tempero — 10 min.</li>
+                  <li>Misture 1/3 do molho de tomate para dar sabor.</li>
+                  <li>Sirva com arroz ou macarrão. Rende para 3–5 pessoas dependendo da família.</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Pacote 4 -->
+            <div class="item">
+              <button aria-expanded="false" onclick="toggle(event)">
+                <h3>Pacote 4 — Plano de Produção para Grupo de Mulheres / Socorro</h3>
+                <span class="chev">▾</span>
+              </button>
+              <div class="panel" hidden>
+                <p class="mini">Divisão de funções, tempos, checklists e etiquetas modelo.</p>
+                <h4>Equipes e Funções</h4>
+                <ul style="color:var(--muted)">
+                  <li>Higienização: lavar, descascar, cortar.</li>
+                  <li>Cozinha: preparar molhos, refogados, antepastos.</li>
+                  <li>Montagem: pesar, envasar, fechar e rotular.</li>
+                  <li>Esterilização: ferver vidros e secar corretamente.</li>
+                  <li>Controle: registrar produção e validade.</li>
+                </ul>
+
+                <h4>Tempo estimado por etapa (ex. 20–30 kg)</h4>
+                <table>
+                  <thead><tr><th>Etapa</th><th>Tempo</th></tr></thead>
+                  <tbody>
+                    <tr><td>Higienização</td><td>~1 hora</td></tr>
+                    <tr><td>Corte</td><td>~1 hora</td></tr>
+                    <tr><td>Cozimento</td><td>40 min por panela</td></tr>
+                    <tr><td>Montagem</td><td>1 hora (40 potes)</td></tr>
+                    <tr><td>Esterilização</td><td>30 min por leva</td></tr>
+                    <tr><td>Rotulagem</td><td>20 min</td></tr>
+                  </tbody>
+                </table>
+
+                <h4>Produção estimada (grupo de 6)</h4>
+                <p style="color:var(--muted)">Legumes picados: 30 kg / Molho: 10 L / Conservas: 40 potes / Antepastos: 25 potes</p>
+
+                <h4>Etiqueta modelo (texto)</h4>
+                <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin-top:6px;color:var(--muted)">
+                  <strong>Produto:</strong> ___________________<br>
+                  <strong>Ingredientes:</strong> ___________________<br>
+                  <strong>Produzido em:</strong> __/__/____ &nbsp; <strong>Validade:</strong> __/__/____<br>
+                  <strong>Responsável:</strong> ___________________<br>
+                  <em>Produção — Mulheres da Sociedade Socorro</em>
+                </div>
+
+                <h5 style="margin-top:8px">Boas práticas</h5>
+                <ul style="color:var(--muted)">
+                  <li>Touca, luvas e mesa limpa.</li>
+                  <li>Vidros esterilizados e secos.</li>
+                  <li>Rotular com data e ingredientes.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <h2>Checklist & Planilhas</h2>
+          <p class="subtitle">Modelos práticos que podem ser copiados para planilha ou impressos.</p>
+
+          <h4>Checklist de Produção</h4>
+          <ul style="color:var(--muted)">
+            <li>Local e mesas limpas</li>
+            <li>Água potável e sabão</li>
+            <li>Luvas, toucas e aventais</li>
+            <li>Frascos e tampas esterilizados</li>
+            <li>Etiquetas imprimíveis e caneta</li>
+            <li>Registro de quantidade produzida</li>
+          </ul>
+
+          <h4 style="margin-top:10px">Planilha de Custo (modelo)</h4>
+          <table>
+            <thead><tr><th>Item</th><th>Custo (R$)</th></tr></thead>
+            <tbody>
+              <tr><td>Tomates (1 kg)</td><td>1,20</td></tr>
+              <tr><td>Batatas (1 kg)</td><td>1,50</td></tr>
+              <tr><td>Abobrinha (1 kg)</td><td>1,00</td></tr>
+              <tr><td>Chuchu (1 kg)</td><td>0,80</td></tr>
+              <tr><td>Embalagens/potes</td><td>0,60</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </main>
+
+      <aside class="card">
+        <h3>Ações rápidas</h3>
+        <p class="mini">Use estas opções para produzir hoje mesmo.</p>
+        <ul style="color:var(--muted);margin-top:6px">
+          <li>Picles: 1 hora para 10 potes</li>
+          <li>Molho de tomate: 3–4 kg tomate → 2 L molho</li>
+          <li>Chips de jiló: fácil para vender como snack</li>
+        </ul>
+
+        <h4 style="margin-top:12px">Etiquetas prontas</h4>
+        <p class="mini">Posso gerar PDF de etiquetas com este texto — peça "etiquetas".</p>
+
+        <h4 style="margin-top:12px">Imprimir / Exportar</h4>
+        <p class="mini">Use o botão imprimir do navegador para gerar PDF. A página é otimizada para impressão.</p>
+      </aside>
+    </div>
+
+    <footer>
+      Feito para facilitar a produção comunitária — se quiser, gero a versão em PDF com etiquetas e planilhas separadas.
+    </footer>
+  </div>
+
+  <script>
+    // accordion
+    function toggle(e){
+      const btn = e.currentTarget;
+      const item = btn.parentElement;
+      const panel = item.querySelector('.panel');
+      const chev = btn.querySelector('.chev');
+      const opened = panel.hasAttribute('hidden') === false;
+      if(opened){ panel.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); chev.classList.remove('open'); }
+      else{ panel.removeAttribute('hidden'); btn.setAttribute('aria-expanded','true'); chev.classList.add('open'); }
+    }
+    function expandAll(state){
+      document.querySelectorAll('#accordion .item').forEach(it=>{
+        const panel = it.querySelector('.panel');
+        const btn = it.querySelector('button');
+        const chev = it.querySelector('.chev');
+        if(state){ panel.removeAttribute('hidden'); btn.setAttribute('aria-expanded','true'); chev.classList.add('open'); }
+        else{ panel.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); chev.classList.remove('open'); }
+      })
+    }
+    // small enhancement: open first by default on wide screens
+    if(window.innerWidth>900){ setTimeout(()=>{ const first = document.querySelector('#accordion .item'); if(first) first.querySelector('.panel').removeAttribute('hidden'); },250)}
+  </script>
+</body>
+  </html>
+  
