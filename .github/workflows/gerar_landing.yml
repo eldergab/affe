@@ -1,0 +1,45 @@
+name: Gerador de Landing Page
+on:
+  repository_dispatch:
+    types: [criar_pagina]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Criar pasta e arquivo da Landing Page
+        run: |
+          # Pega os dados enviados pelo formulário
+          NOME_LOJA="${{ github.event.client_payload.nome_loja }}"
+          PRECO="${{ github.event.client_payload.preco }}"
+          SLUG="${{ github.event.client_payload.slug }}"
+          
+          # Cria a pasta do patrocinador
+          mkdir -p "p/$SLUG"
+          
+          # Cria o arquivo HTML dentro da pasta
+          cat <<EOF > "p/$SLUG/index.html"
+          <!DOCTYPE html>
+          <html lang="pt-br">
+          <head>
+              <meta charset="UTF-8">
+              <title>$NOME_LOJA</title>
+              <style>body { font-family: sans-serif; text-align: center; padding: 50px; }</style>
+          </head>
+          <body>
+              <h1>Bem-vindo à $NOME_LOJA</h1>
+              <p>Oferta especial: Apenas R$ $PRECO</p>
+          </body>
+          </html>
+          EOF
+
+      - name: Salvar no GitHub
+        run: |
+          git config --global user.name "Gerador Automático"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Nova landing page: ${{ github.event.client_payload.slug }}"
+          git push
