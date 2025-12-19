@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Nova Landing Page - Affe</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #28a745; color: white; cursor: pointer; border: none; font-weight: bold; }
+        button:hover { background-color: #218838; }
+        .status { margin-top: 15px; font-weight: bold; color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <h2>Gerador de Landing Page</h2>
+    
+    <label>Nome do Patrocinador:</label>
+    <input type="text" id="nome_loja" placeholder="Ex: Oficina do João">
+
+    <label>Preço em Destaque (R$):</label>
+    <input type="text" id="preco" placeholder="Ex: 99,90">
+
+    <label>URL Amigável (slug):</label>
+    <input type="text" id="slug" placeholder="Ex: oficina-do-joao">
+
+    <button onclick="enviarDados()">🚀 Criar Landing Page</button>
+
+    <div id="status" class="status"></div>
+
+    <script>
+        async function enviarDados() {
+            const statusDiv = document.getElementById('status');
+            const nomeLoja = document.getElementById('nome_loja').value;
+            const preco = document.getElementById('preco').value;
+            const slug = document.getElementById('slug').value;
+
+            // --- CONFIGURAÇÃO IMPORTANTE ---
+            const TOKEN = "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"; // Cole aqui o token que você gerou no Passo 2
+            const USUARIO = "eldergab"; // Seu nome de usuário
+            const REPO = "land"; // O nome do repositório do affe.com.br
+            // -------------------------------
+
+            statusDiv.innerText = "Enviando comando para o robô...";
+
+            const url = `https://api.github.com/repos/${USUARIO}/${REPO}/dispatches`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${TOKEN}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        event_type: 'criar_pagina', // Deve ser o mesmo nome que está no seu arquivo .yml
+                        client_payload: {
+                            nome_loja: nomeLoja,
+                            preco: preco,
+                            slug: slug
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    statusDiv.style.color = "green";
+                    statusDiv.innerText = "✅ Sucesso! O robô está criando a página. Em 1 minuto estará em: affe.com.br/p/" + slug;
+                } else {
+                    const erro = await response.json();
+                    statusDiv.style.color = "red";
+                    statusDiv.innerText = "❌ Erro: " + erro.message;
+                }
+            } catch (error) {
+                statusDiv.innerText = "❌ Erro na conexão: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
