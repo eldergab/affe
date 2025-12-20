@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confraternização de Natal - Jantar da Ala</title>
+    <style>
+        :root {
+            --vermelho-natal: #b71c1c;
+            --verde-natal: #2e7d32;
+            --dourado: #bf953f;
+            --fundo: #fdfcf0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--fundo);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cartao {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 2px solid var(--dourado);
+        }
+
+        .topo {
+            background-color: var(--vermelho-natal);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .logo-container {
+            background: white;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--dourado);
+        }
+
+        .logo-container img {
+            width: 90%;
+            height: auto;
+        }
+
+        h1 { margin: 10px 0 5px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitulo { font-style: italic; opacity: 0.9; font-size: 0.9rem; }
+
+        .conteudo { padding: 25px; }
+
+        .secao {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .secao-titulo {
+            display: flex;
+            align-items: center;
+            color: var(--verde-natal);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .secao-titulo span { margin-right: 10px; font-size: 1.4rem; }
+
+        .lista-itens {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .item:last-child { border-bottom: none; }
+
+        .qtd {
+            font-weight: bold;
+            color: var(--vermelho-natal);
+            min-width: 40px;
+        }
+
+        .nome-item { flex-grow: 1; margin-left: 10px; }
+
+        .obs {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .rodape {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #888;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cartao">
+        <div class="topo">
+            <div class="logo-container">
+                <img src="Nova Logo.png" alt="Logo Alegrar a Família">
+            </div>
+            <h1>Confraternização de Natal</h1>
+            <div class="subtitulo">Jantar da Ala - Missão: Alegrar a Família</div>
+        </div>
+
+        <div class="conteudo">
+            
+            <div class="secao">
+                <div class="secao-titulo"><span>🥗</span> Hortifrúti & Saladas</div>
+                <ul class="lista-itens">
+                    <li class="item"><span class="qtd">03</span> <span class="nome-item">Pés de Alface Crespa</span></li>
+                    <li class="item"><span class="qtd">03</span> <span class="nome-item">Pés de Alface Americana</span></li>
+                    <li class="item"><span class="qtd">03</span> <span class="nome-item">Pés de Alface Roxa</span></li>
+                    <li class="item"><span class="qtd">02</span> <span class="nome-item">Pés de Agrião <span class="obs">*Se não encontrar, trazer rúcula</span></span></li>
+                    <li class="item"><span class="qtd">04</span> <span class="nome-item">Bandeiras de Tomate Cereja <span class="obs">*Bem vermelhos</span></span></li>
+                    <li class="item"><span class="qtd">03</span> <span class="nome-item">Cebolas Roxas</span></li>
+                </ul>
+            </div>
+
+            <div class="secao">
+                <div class="secao-titulo"><span>🍎</span> Frutas</div>
+                <ul class="lista-itens">
+                    <li class="item"><span class="qtd">02</span> <span class="nome-item">Bandeiras de Uva</span></li>
+                    <li class="item"><span class="qtd">04</span> <span class="nome-item">Bandeiras de Morango</span></li>
+                    <li class="item"><span class="qtd">08</span> <span class="nome-item">Maçãs</span></li>
+                    <li class="item"><span class="qtd">06</span> <span class="nome-item">Mangas Tony</span></li>
+                </ul>
+            </div>
+
+            <div class="secao">
+                <div class="secao-titulo"><span>🌿</span> Temperos e Mercearia</div>
+                <ul class="lista-itens">
+                    <li class="item"><span class="qtd">01</span> <span class="nome-item">Cheiro Verde (Salsa) <span class="obs">*Comprar 2 se for pequeno</span></span></li>
+                    <li class="item"><span class="qtd">02</span> <span class="nome-item">Cebolinhas / 02 Coentros</span></li>
+                    <li class="item"><span class="qtd">01</span> <span class="nome-item">Pote de Alho Frito</span></li>
+                    <li class="item"><span class="qtd">01</span> <span class="nome-item">Margarina (500grs Delícia)</span></li>
+                    <li class="item"><span class="qtd">02</span> <span class="nome-item">Kilos de Feijão</span></li>
+                    <li class="item"><span class="qtd">1.5</span> <span class="nome-item">Quilo de Bacon</span></li>
+                    <li class="item"><span class="qtd">01</span> <span class="nome-item">Cartela com 20 Ovos</span></li>
+                    <li class="item"><span class="qtd">02</span> <span class="nome-item">Álcool Gel p/ Churrasqueira</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="rodape">
+            🎄 "Alegrar a Família é a nossa missão" 🎄
+        </div>
+    </div>
+
+</body>
+</html>
