@@ -2,100 +2,126 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Mapa do Brasil Interativo</title>
+    <title>Mapa do Brasil Profissional</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; }
-        #container { width: 100%; max-width: 800px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px; }
-        svg { width: 100%; height: auto; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
+        h1 { color: #2c3e50; margin-bottom: 5px; }
+        p { color: #7f8c8d; margin-bottom: 20px; }
+
+        #map-container { 
+            width: 100%; 
+            max-width: 800px; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); 
+        }
         
         /* Estilo dos Estados */
         path { 
-            stroke: #fff; 
+            stroke: #ffffff; 
             stroke-width: 0.5; 
-            transition: 0.3s; 
+            transition: all 0.3s ease; 
             cursor: pointer; 
         }
-        path:hover { 
-            opacity: 0.7; 
-            stroke-width: 2;
-        }
 
-        /* Cores por Região */
+        /* Cores Regionais Modernas */
         .norte { fill: #27ae60; }
         .nordeste { fill: #f1c40f; }
         .centro-oeste { fill: #e67e22; }
         .sudeste { fill: #e74c3c; }
         .sul { fill: #3498db; }
 
-        #label-estado {
-            font-size: 1.5rem;
+        /* Efeito de destaque */
+        path:hover { 
+            fill: #2c3e50 !important; 
+            filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.5));
+            transform: scale(1.01);
+            stroke-width: 1;
+        }
+
+        /* Tooltip flutuante */
+        #tooltip {
+            position: fixed;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: none;
+            pointer-events: none;
+            font-size: 14px;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-            height: 35px;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
 
-    <h2>Mapa do Brasil</h2>
-    <div id="label-estado">Passe o mouse ou clique</div>
+    <h1>Mapa Interativo do Brasil</h1>
+    <p>Passe o mouse para identificar e clique para acessar a página.</p>
 
-    <div id="container">
-        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-            <path id="acre" class="norte" title="Acre" d="M38,228 L54,228 L73,256 L55,275 L30,260 Z" />
-            <path id="amazonas" class="norte" title="Amazonas" d="M54,120 L160,110 L200,180 L180,250 L80,250 L50,210 Z" />
-            <path id="para" class="norte" title="Pará" d="M165,110 L280,110 L310,240 L240,260 L205,185 Z" />
-            <path id="rondonia" class="norte" title="Rondônia" d="M85,255 L165,255 L175,310 L115,310 Z" />
-            <path id="roraima" class="norte" title="Roraima" d="M125,45 L185,55 L165,105 L110,105 Z" />
-            <path id="amapa" class="norte" title="Amapá" d="M235,55 L280,75 L270,105 L225,100 Z" />
-            <path id="tocantins" class="norte" title="Tocantins" d="M265,225 L310,245 L290,325 L255,305 Z" />
+    <div id="map-container">
+        <svg id="brazil-map" viewBox="0 0 550 550" xmlns="http://www.w3.org/2000/svg">
+            <g id="reais">
+                <path id="acre" class="norte" title="Acre" d="M34.8,243.6l12.7-2.6l4.2,3.3l3.6,12l10.8,4l12.1-4.1l11.4,11.3l-2.6,9.5l-5.6,22.7l-13.1,10.1l-40.4-15.5l-4.5-19.1L34.8,243.6z"/>
+                <path id="amazonas" class="norte" title="Amazonas" d="M145.7,109l23.5,23.3l13.7,51.8l-19,53.2l-21.6,18.7l-69.5-3.3l-24.1-33.8l-18.1,0.5l-19.1-13.8l32.1-44.1l25.8,1.4l11.3-15.3l52.6-26L145.7,109z"/>
+                <path id="para" class="norte" title="Pará" d="M192.5,108.3l65.2,1.3l29.4,49l-2,83.1l-36.8,11.5l-63.5-30.7l-11-23.3L192.5,108.3z"/>
+                <path id="amapa" class="norte" title="Amapá" d="M228,55l45.2,18l-8.5,35l-48.5-5.5L228,55z"/>
+                <path id="roraima" class="norte" title="Roraima" d="M114.5,47.8l61,7.2l-18.2,52.3l-56.3-1l-1.3-32.2L114.5,47.8z"/>
+                <path id="tocantins" class="norte" title="Tocantins" d="M268,220l41,20l-18.5,88.5l-33.5-17.5l2-62.5L268,220z"/>
+                <path id="rondonia" class="norte" title="Rondônia" d="M94.5,258l73.5,1.5l8.5,50.5l-60.5,1l-21.5-31.5L94.5,258z"/>
 
-            <path id="maranhao" class="nordeste" title="Maranhão" d="M285,115 L350,140 L340,225 L290,215 Z" />
-            <path id="piaui" class="nordeste" title="Piauí" d="M355,145 L395,175 L375,260 L335,235 Z" />
-            <path id="ceara" class="nordeste" title="Ceará" d="M400,145 L445,160 L430,200 L395,185 Z" />
-            <path id="rio-grande-do-norte" class="nordeste" title="Rio Grande do Norte" d="M450,165 L485,175 L475,200 L435,195 Z" />
-            <path id="paraiba" class="nordeste" title="Paraíba" d="M445,200 L485,205 L480,225 L435,220 Z" />
-            <path id="pernambuco" class="nordeste" title="Pernambuco" d="M410,215 L480,230 L470,250 L395,235 Z" />
-            <path id="alagoas" class="nordeste" title="Alagoas" d="M440,250 L465,255 L455,275 L425,265 Z" />
-            <path id="sergipe" class="nordeste" title="Sergipe" d="M420,270 L445,275 L435,295 L415,290 Z" />
-            <path id="bahia" class="nordeste" title="Bahia" d="M315,250 L390,245 L430,320 L380,380 L320,335 Z" />
+                <path id="bahia" class="nordeste" title="Bahia" d="M318,255l75-5.5l42,85.5l-52,65l-65-45l-5-75L318,255z"/>
+                <path id="maranhao" class="nordeste" title="Maranhão" d="M285.5,116l61,21.5l-10,87.5l-51.5-11.5L285.5,116z"/>
+                <path id="piaui" class="nordeste" title="Piauí" d="M351,141l45,28l-25,95l-31.5-24.5L351,141z"/>
+                <path id="ceara" class="nordeste" title="Ceará" d="M399,146l48,16l-18,44l-34-16L399,146z"/>
+                <path id="rio-grande-do-norte" class="nordeste" title="Rio Grande do Norte" d="M451,166l37,10l-12,27l-41-4L451,166z"/>
+                <path id="paraiba" class="nordeste" title="Paraíba" d="M446,204l43,4l-5,23l-45-5L446,204z"/>
+                <path id="pernambuco" class="nordeste" title="Pernambuco" d="M409,219l75,13l-10,21l-75-15L409,219z"/>
+                <path id="alagoas" class="nordeste" title="Alagoas" d="M439,254l28,6l-11,21l-31-10L439,254z"/>
+                <path id="sergipe" class="nordeste" title="Sergipe" d="M422,274l23,5l-10,21l-22-6L422,274z"/>
 
-            <path id="mato-grosso" class="centro-oeste" title="Mato Grosso" d="M175,255 L255,255 L280,380 L185,380 Z" />
-            <path id="mato-grosso-do-sul" class="centro-oeste" title="Mato Grosso do Sul" d="M190,385 L260,385 L260,460 L200,450 Z" />
-            <path id="goias" class="centro-oeste" title="Goiás" d="M265,335 L315,340 L300,410 L255,410 Z" />
-            <path id="distrito-federal" class="centro-oeste" style="fill: #333;" title="Distrito Federal" d="M285,365 L300,365 L300,380 L285,380 Z" />
+                <path id="mato-grosso" class="centro-oeste" title="Mato Grosso" d="M182,258l76-2l28,128l-94,2L182,258z"/>
+                <path id="mato-grosso-do-sul" class="centro-oeste" title="Mato Grosso do Sul" d="M195,391l66,2l1,76l-60-12L195,391z"/>
+                <path id="goias" class="centro-oeste" title="Goiás" d="M266,335l51,8l-15,69l-43,1L266,335z"/>
+                <path id="distrito-federal" style="fill:#333" title="Distrito Federal" d="M288,368h12v12h-12V368z"/>
 
-            <path id="minas-gerais" class="sudeste" title="Minas Gerais" d="M310,345 L385,385 L370,450 L275,445 Z" />
-            <path id="espirito-santo" class="sudeste" title="Espírito Santo" d="M380,410 L410,415 L400,455 L375,445 Z" />
-            <path id="rio-de-janeiro" class="sudeste" title="Rio de Janeiro" d="M340,455 L390,465 L375,485 L325,475 Z" />
-            <path id="sao-paulo" class="sudeste" title="São Paulo" d="M265,450 L330,460 L310,510 L245,500 Z" />
+                <path id="minas-gerais" class="sudeste" title="Minas Gerais" d="M312,347l79,42l-18,65l-95-5L312,347z"/>
+                <path id="sao-paulo" class="sudeste" title="São Paulo" d="M266,454l68,11l-22,47l-64-11L266,454z"/>
+                <path id="rio-de-janeiro" class="sudeste" title="Rio de Janeiro" d="M340,459l52,10l-14,24l-48-12L340,459z"/>
+                <path id="espirito-santo" class="sudeste" title="Espírito Santo" d="M386,413l27,5l-9,43l-25-10L386,413z"/>
 
-            <path id="parana" class="sul" title="Paraná" d="M230,480 L295,495 L275,535 L215,520 Z" />
-            <path id="santa-catarina" class="sul" title="Santa Catarina" d="M235,540 L285,545 L275,570 L220,565 Z" />
-            <path id="rio-grande-do-sul" class="sul" title="Rio Grande do Sul" d="M210,570 L275,575 L255,640 L195,620 Z" />
+                <path id="parana" class="sul" title="Paraná" d="M232,484l65,15l-18,41l-59-13L232,484z"/>
+                <path id="santa-catarina" class="sul" title="Santa Catarina" d="M238,544l50,6l-11,26l-51-5L238,544z"/>
+                <path id="rio-grande-do-sul" class="sul" title="Rio Grande do Sul" d="M213,576l64,5l-21,68l-59-20L213,576z"/>
+            </g>
         </svg>
     </div>
 
+    <div id="tooltip"></div>
+
     <script>
-        const estados = document.querySelectorAll('path');
-        const label = document.getElementById('label-estado');
+        const paths = document.querySelectorAll('path');
+        const tooltip = document.getElementById('tooltip');
 
-        estados.forEach(estado => {
-            // Ao passar o mouse, mostra o nome
-            estado.addEventListener('mouseenter', () => {
-                label.innerText = estado.getAttribute('title');
+        paths.forEach(path => {
+            // Efeito visual ao passar o mouse
+            path.addEventListener('mousemove', (e) => {
+                tooltip.style.display = 'block';
+                tooltip.innerText = path.getAttribute('title');
+                tooltip.style.left = (e.pageX + 15) + 'px';
+                tooltip.style.top = (e.pageY + 15) + 'px';
             });
 
-            // Ao tirar o mouse, limpa o texto
-            estado.addEventListener('mouseleave', () => {
-                label.innerText = "Clique em um estado";
+            path.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
             });
 
-            // Ao clicar, redireciona
-            estado.addEventListener('click', () => {
-                const url = estado.id + ".php";
-                window.location.href = url;
+            // Clique para redirecionar
+            path.addEventListener('click', () => {
+                const idEstado = path.id; // Ex: acre, sao-paulo
+                window.location.href = idEstado + ".php";
             });
         });
     </script>
