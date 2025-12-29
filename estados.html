@@ -2,123 +2,102 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Interativo do Brasil</title>
+    <title>Mapa do Brasil Interativo</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; }
+        #container { width: 100%; max-width: 800px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px; }
+        svg { width: 100%; height: auto; }
         
-        #mapa-container {
-            width: 90%;
-            max-width: 700px;
-            margin-top: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* Estilo dos Estados */
+        path { 
+            stroke: #fff; 
+            stroke-width: 0.5; 
+            transition: 0.3s; 
+            cursor: pointer; 
+        }
+        path:hover { 
+            opacity: 0.7; 
+            stroke-width: 2;
         }
 
-        /* Estilização dos estados no SVG */
-        path {
-            fill: #2d3436; /* Cor padrão */
-            stroke: #ffffff;
-            stroke-width: 1;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
+        /* Cores por Região */
+        .norte { fill: #27ae60; }
+        .nordeste { fill: #f1c40f; }
+        .centro-oeste { fill: #e67e22; }
+        .sudeste { fill: #e74c3c; }
+        .sul { fill: #3498db; }
 
-        /* Cores diferentes por região (Exemplo via CSS) */
-        /* Norte */
-        path[id="AC"], path[id="AP"], path[id="AM"], path[id="PA"], path[id="RO"], path[id="RR"], path[id="TO"] { fill: #27ae60; }
-        /* Nordeste */
-        path[id="AL"], path[id="BA"], path[id="CE"], path[id="MA"], path[id="PB"], path[id="PE"], path[id="PI"], path[id="RN"], path[id="SE"] { fill: #f1c40f; }
-        /* Centro-Oeste */
-        path[id="DF"], path[id="GO"], path[id="MT"], path[id="MS"] { fill: #e67e22; }
-        /* Sudeste */
-        path[id="ES"], path[id="MG"], path[id="RJ"], path[id="SP"] { fill: #e74c3c; }
-        /* Sul */
-        path[id="PR"], path[id="RS"], path[id="SC"] { fill: #3498db; }
-
-        path:hover {
-            fill: #2c3e50 !important;
-            opacity: 0.7;
-        }
-
-        #tooltip {
-            position: absolute;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: none;
-            pointer-events: none;
+        #label-estado {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            height: 35px;
         }
     </style>
 </head>
 <body>
 
-    <h2>Mapa do Brasil Interativo</h2>
-    <p>Clique em um estado para abrir o link correspondente.</p>
+    <h2>Mapa do Brasil</h2>
+    <div id="label-estado">Passe o mouse ou clique</div>
 
-    <div id="mapa-container">
-        <div id="canvas-mapa"></div>
+    <div id="container">
+        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <path id="acre" class="norte" title="Acre" d="M38,228 L54,228 L73,256 L55,275 L30,260 Z" />
+            <path id="amazonas" class="norte" title="Amazonas" d="M54,120 L160,110 L200,180 L180,250 L80,250 L50,210 Z" />
+            <path id="para" class="norte" title="Pará" d="M165,110 L280,110 L310,240 L240,260 L205,185 Z" />
+            <path id="rondonia" class="norte" title="Rondônia" d="M85,255 L165,255 L175,310 L115,310 Z" />
+            <path id="roraima" class="norte" title="Roraima" d="M125,45 L185,55 L165,105 L110,105 Z" />
+            <path id="amapa" class="norte" title="Amapá" d="M235,55 L280,75 L270,105 L225,100 Z" />
+            <path id="tocantins" class="norte" title="Tocantins" d="M265,225 L310,245 L290,325 L255,305 Z" />
+
+            <path id="maranhao" class="nordeste" title="Maranhão" d="M285,115 L350,140 L340,225 L290,215 Z" />
+            <path id="piaui" class="nordeste" title="Piauí" d="M355,145 L395,175 L375,260 L335,235 Z" />
+            <path id="ceara" class="nordeste" title="Ceará" d="M400,145 L445,160 L430,200 L395,185 Z" />
+            <path id="rio-grande-do-norte" class="nordeste" title="Rio Grande do Norte" d="M450,165 L485,175 L475,200 L435,195 Z" />
+            <path id="paraiba" class="nordeste" title="Paraíba" d="M445,200 L485,205 L480,225 L435,220 Z" />
+            <path id="pernambuco" class="nordeste" title="Pernambuco" d="M410,215 L480,230 L470,250 L395,235 Z" />
+            <path id="alagoas" class="nordeste" title="Alagoas" d="M440,250 L465,255 L455,275 L425,265 Z" />
+            <path id="sergipe" class="nordeste" title="Sergipe" d="M420,270 L445,275 L435,295 L415,290 Z" />
+            <path id="bahia" class="nordeste" title="Bahia" d="M315,250 L390,245 L430,320 L380,380 L320,335 Z" />
+
+            <path id="mato-grosso" class="centro-oeste" title="Mato Grosso" d="M175,255 L255,255 L280,380 L185,380 Z" />
+            <path id="mato-grosso-do-sul" class="centro-oeste" title="Mato Grosso do Sul" d="M190,385 L260,385 L260,460 L200,450 Z" />
+            <path id="goias" class="centro-oeste" title="Goiás" d="M265,335 L315,340 L300,410 L255,410 Z" />
+            <path id="distrito-federal" class="centro-oeste" style="fill: #333;" title="Distrito Federal" d="M285,365 L300,365 L300,380 L285,380 Z" />
+
+            <path id="minas-gerais" class="sudeste" title="Minas Gerais" d="M310,345 L385,385 L370,450 L275,445 Z" />
+            <path id="espirito-santo" class="sudeste" title="Espírito Santo" d="M380,410 L410,415 L400,455 L375,445 Z" />
+            <path id="rio-de-janeiro" class="sudeste" title="Rio de Janeiro" d="M340,455 L390,465 L375,485 L325,475 Z" />
+            <path id="sao-paulo" class="sudeste" title="São Paulo" d="M265,450 L330,460 L310,510 L245,500 Z" />
+
+            <path id="parana" class="sul" title="Paraná" d="M230,480 L295,495 L275,535 L215,520 Z" />
+            <path id="santa-catarina" class="sul" title="Santa Catarina" d="M235,540 L285,545 L275,570 L220,565 Z" />
+            <path id="rio-grande-do-sul" class="sul" title="Rio Grande do Sul" d="M210,570 L275,575 L255,640 L195,620 Z" />
+        </svg>
     </div>
 
-    <div id="tooltip"></div>
-
     <script>
-        // Carregando o arquivo SVG de uma fonte confiável (Highcharts/Github)
-        fetch('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson')
-            .then(response => response.json())
-            .then(data => {
-                // Para este exemplo, usamos uma versão simplificada ou um SVG pronto
-                // Como carregar um GeoJSON é complexo sem bibliotecas, vou injetar o SVG direto:
-                carregarMapaSVG();
+        const estados = document.querySelectorAll('path');
+        const label = document.getElementById('label-estado');
+
+        estados.forEach(estado => {
+            // Ao passar o mouse, mostra o nome
+            estado.addEventListener('mouseenter', () => {
+                label.innerText = estado.getAttribute('title');
             });
 
-        function carregarMapaSVG() {
-            // Link para um SVG completo com todos os IDs de estados brasileiros
-            fetch('https://raw.githubusercontent.com/the-muda-organization/brazil-js-svg-maps/master/brazil.svg')
-                .then(res => res.text())
-                .then(svgText => {
-                    const container = document.getElementById('canvas-mapa');
-                    container.innerHTML = svgText;
-                    
-                    configurarCliques();
-                });
-        }
-
-        function configurarCliques() {
-            const estados = document.querySelectorAll('path');
-            const tooltip = document.getElementById('tooltip');
-
-            estados.forEach(estado => {
-                // Adiciona o evento de clique
-                estado.addEventListener('click', function() {
-                    const id = this.id || this.getAttribute('name');
-                    if (id) {
-                        // Mapeamento de IDs para nomes amigáveis (opcional)
-                        const nomesLongo = { "SP": "sao-paulo", "RJ": "rio-de-janeiro", "MG": "minas-gerais" /* ... */ };
-                        const destino = nomesLongo[id] || id.toLowerCase();
-                        
-                        window.location.href = `${destino}.php`;
-                    }
-                });
-
-                // Efeito visual de Tooltip (Nome do estado ao passar o mouse)
-                estado.addEventListener('mousemove', function(e) {
-                    tooltip.innerText = this.getAttribute('title') || this.id;
-                    tooltip.style.display = 'block';
-                    tooltip.style.left = e.pageX + 10 + 'px';
-                    tooltip.style.top = e.pageY + 10 + 'px';
-                });
-
-                estado.addEventListener('mouseout', function() {
-                    tooltip.style.display = 'none';
-                });
+            // Ao tirar o mouse, limpa o texto
+            estado.addEventListener('mouseleave', () => {
+                label.innerText = "Clique em um estado";
             });
-        }
 
-        window.onload = carregarMapaSVG;
+            // Ao clicar, redireciona
+            estado.addEventListener('click', () => {
+                const url = estado.id + ".php";
+                window.location.href = url;
+            });
+        });
     </script>
 </body>
 </html>
