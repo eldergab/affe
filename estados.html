@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interativo do Brasil</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #f4f4f4; }
+        
+        #mapa-container {
+            width: 90%;
+            max-width: 700px;
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Estilização dos estados no SVG */
+        path {
+            fill: #2d3436; /* Cor padrão */
+            stroke: #ffffff;
+            stroke-width: 1;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        /* Cores diferentes por região (Exemplo via CSS) */
+        /* Norte */
+        path[id="AC"], path[id="AP"], path[id="AM"], path[id="PA"], path[id="RO"], path[id="RR"], path[id="TO"] { fill: #27ae60; }
+        /* Nordeste */
+        path[id="AL"], path[id="BA"], path[id="CE"], path[id="MA"], path[id="PB"], path[id="PE"], path[id="PI"], path[id="RN"], path[id="SE"] { fill: #f1c40f; }
+        /* Centro-Oeste */
+        path[id="DF"], path[id="GO"], path[id="MT"], path[id="MS"] { fill: #e67e22; }
+        /* Sudeste */
+        path[id="ES"], path[id="MG"], path[id="RJ"], path[id="SP"] { fill: #e74c3c; }
+        /* Sul */
+        path[id="PR"], path[id="RS"], path[id="SC"] { fill: #3498db; }
+
+        path:hover {
+            fill: #2c3e50 !important;
+            opacity: 0.7;
+        }
+
+        #tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Mapa do Brasil Interativo</h2>
+    <p>Clique em um estado para abrir o link correspondente.</p>
+
+    <div id="mapa-container">
+        <div id="canvas-mapa"></div>
+    </div>
+
+    <div id="tooltip"></div>
+
+    <script>
+        // Carregando o arquivo SVG de uma fonte confiável (Highcharts/Github)
+        fetch('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson')
+            .then(response => response.json())
+            .then(data => {
+                // Para este exemplo, usamos uma versão simplificada ou um SVG pronto
+                // Como carregar um GeoJSON é complexo sem bibliotecas, vou injetar o SVG direto:
+                carregarMapaSVG();
+            });
+
+        function carregarMapaSVG() {
+            // Link para um SVG completo com todos os IDs de estados brasileiros
+            fetch('https://raw.githubusercontent.com/the-muda-organization/brazil-js-svg-maps/master/brazil.svg')
+                .then(res => res.text())
+                .then(svgText => {
+                    const container = document.getElementById('canvas-mapa');
+                    container.innerHTML = svgText;
+                    
+                    configurarCliques();
+                });
+        }
+
+        function configurarCliques() {
+            const estados = document.querySelectorAll('path');
+            const tooltip = document.getElementById('tooltip');
+
+            estados.forEach(estado => {
+                // Adiciona o evento de clique
+                estado.addEventListener('click', function() {
+                    const id = this.id || this.getAttribute('name');
+                    if (id) {
+                        // Mapeamento de IDs para nomes amigáveis (opcional)
+                        const nomesLongo = { "SP": "sao-paulo", "RJ": "rio-de-janeiro", "MG": "minas-gerais" /* ... */ };
+                        const destino = nomesLongo[id] || id.toLowerCase();
+                        
+                        window.location.href = `${destino}.php`;
+                    }
+                });
+
+                // Efeito visual de Tooltip (Nome do estado ao passar o mouse)
+                estado.addEventListener('mousemove', function(e) {
+                    tooltip.innerText = this.getAttribute('title') || this.id;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = e.pageX + 10 + 'px';
+                    tooltip.style.top = e.pageY + 10 + 'px';
+                });
+
+                estado.addEventListener('mouseout', function() {
+                    tooltip.style.display = 'none';
+                });
+            });
+        }
+
+        window.onload = carregarMapaSVG;
+    </script>
+</body>
+</html>
