@@ -1,62 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Mapa do Brasil Comercial</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
-        #map-container { width: 100%; max-width: 750px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        /* Cores de Mapa de Verdade */
-        path { stroke: #fff; stroke-width: 0.5; transition: 0.3s; cursor: pointer; }
-        .norte { fill: #27ae60; }
-        .nordeste { fill: #f1c40f; }
-        .centro-oeste { fill: #e67e22; }
-        .sudeste { fill: #e74c3c; }
-        .sul { fill: #3498db; }
+<meta charset="UTF-8">
+<title>Mapa Interativo do Brasil</title>
+<style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; text-align:center; margin:0; padding:25px; }
+    h1 { margin-bottom: 0; color:#2c3e50; }
+    p { margin-top: 4px; color:#7f8c8d; }
 
-        path:hover { fill: #2c3e50 !important; opacity: 0.8; transform: translateY(-2px); }
-        
-        #tooltip {
-            position: fixed; background: rgba(0,0,0,0.8); color: white; padding: 8px 12px;
-            border-radius: 5px; display: none; pointer-events: none; font-size: 14px; z-index: 100;
-        }
-    </style>
+    #map-wrapper{
+        width:100%;
+        max-width:900px;
+        margin:25px auto;
+        background:white;
+        border-radius:20px;
+        padding:30px;
+        box-shadow:0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Estilos dos estados */
+    svg path { stroke:#ffffff; stroke-width:1; transition:.2s; cursor:pointer; }
+
+    .norte{ fill:#27ae60; }
+    .nordeste{ fill:#f1c40f; }
+    .centro{ fill:#e67e22; }
+    .sudeste{ fill:#e74c3c; }
+    .sul{ fill:#3498db; }
+
+    svg path:hover { fill:#2c3e50 !important; transform:scale(1.02); }
+
+    /* Tooltip */
+    #tooltip{
+        position:fixed;
+        background:rgba(44,62,80,.9);
+        color:#fff;
+        padding:8px 12px;
+        border-radius:6px;
+        display:none;
+        pointer-events:none;
+        font-size:14px;
+        font-weight:bold;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        z-index:999;
+    }
+</style>
 </head>
 <body>
 
-    <h2>Mapa Interativo Profissional</h2>
-    <div id="map-container">
-        <svg viewBox="0 0 610 610" xmlns="http://www.w3.org/2000/svg">
-            <g>
-                <path id="amazonas" class="norte" title="Amazonas" d="M152.4,118.5l25.1,23.5l14.6,52.2l-20.3,53.6l-23.1,18.8l-74.1-3.3l-25.7-34.1l-19.3,0.5l-20.4-13.9l34.2-44.4l27.5,1.4l12-15.4l56.1-26.2L152.4,118.5z"/>
-                <path id="para" class="norte" title="Pará" d="M181.1,117.8l90.9,1.4l31.4,52.3l-2.1,88.7l-39.2,12.3l-67.7-32.8l-11.7-24.9L181.1,117.8z"/>
-                <path id="acre" class="norte" title="Acre" d="M26.8,262.2l11.5-2.8l10.7,14.7l13.5,4.6l12.9-4.4l12.2,12.1l-6,24.2l-16.1,10.8L11,304.9l-4.3-20.4L26.8,262.2z"/>
-                
-                <path id="sao-paulo" class="sudeste" title="São Paulo" d="M265,485.5l72.5,11.7l-23.5,50.1l-68.3-11.7L265,485.5z"/>
-                <path id="rio-de-janeiro" class="sudeste" title="Rio de Janeiro" d="M343.8,490.9l55.5,10.7l-14.9,25.6l-51.2-12.8L343.8,490.9z"/>
-                <path id="minas-gerais" class="sudeste" title="Minas Gerais" d="M314.1,371.2l84.3,44.8l-19.2,69.3l-101.4-5.3L314.1,371.2z"/>
+<h1>Mapa Interativo do Brasil</h1>
+<p>Passe o mouse para ver o nome — clique para abrir a página do estado.</p>
 
-                </g>
-        </svg>
-    </div>
-    <div id="tooltip"></div>
+<div id="map-wrapper">
 
-    <script>
-        document.querySelectorAll('path').forEach(el => {
-            el.addEventListener('click', () => { window.location.href = el.id + '.php'; });
-            el.addEventListener('mouseover', (e) => {
-                const tt = document.getElementById('tooltip');
-                tt.innerText = el.getAttribute('title');
-                tt.style.display = 'block';
-            });
-            el.addEventListener('mousemove', (e) => {
-                const tt = document.getElementById('tooltip');
-                tt.style.left = e.pageX + 15 + 'px';
-                tt.style.top = e.pageY + 15 + 'px';
-            });
-            el.addEventListener('mouseout', () => { document.getElementById('tooltip').style.display = 'none'; });
-        });
-    </script>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" id="map-brasil">
+
+    <!-- NORTE -->
+    <path id="ac" class="norte" title="Acre" d="M106.7 561.7l60.7-7 56.7 37.3-1.3 71.3-103.3 12.7-23.3-28 10.5-86.3z"/>
+    <path id="am" class="norte" title="Amazonas" d="M257.3 361.7l100-111.3 128.7-23.3 72 165.3-32.7 129.3-199.3 26.7L257.3 361.7z"/>
+    <path id="rr" class="norte" title="Roraima" d="M374.7 183l87.3-37.7 102 51-63.3 126.7-120-40.7L374.7 183z"/>
+    <path id="pa" class="norte" title="Pará" d="M548.7 212.3l151.3 60-39.3 213.3-181.3 8.7-49.3-205.3 118.7-76.7z"/>
+    <path id="ap" class="norte" title="Amapá" d="M719.3 120l69.3 68.7-29.3 94-129.3-47.3L719.3 120z"/>
+    <path id="to" class="norte" title="Tocantins" d="M582 500l109.3 33.3L661.3 712l-128.7-30.7 20.7-181.3z"/>
+    <path id="ro" class="norte" title="Rondônia" d="M233.3 590l129.3-10 12.7 135.3-122.7-21.3-19.3-104z"/>
+
+    <!-- NORDESTE -->
+    <path id="ma" class="nordeste" title="Maranhão" d="M618 342l113.3 33.3 33.3 124 -131.3 6.7L618 342z"/>
+    <path id="pi" class="nordeste" title="Piauí" d="M764.7 390l102.7 53.3L814 610l-89.3-38 40-182z"/>
+    <path id="ce" class="nordeste" title="Ceará" d="M868 402l111.3 30.7L939.3 490l-86.7-32.7L868 402z"/>
+    <path id="rn" class="nordeste" title="Rio Grande do Norte" d="M933 432l89.3 14 -31.3 44.7-87.3-20 29.3-38.7z"/>
+    <path id="pb" class="nordeste" title="Paraíba" d="M911.3 472l92 12.7 -9.3 37.3 -95.3-14 12.7-36z"/>
+    <path id="pe" class="nordeste" title="Pernambuco" d="M847.3 525.3l155.3 30.7L990 587l-148.7-28 6-33.7z"/>
+    <path id="al" class="nordeste" title="Alagoas" d="M905.3 575l76.7 18 -16.7 40.7-78-24 18-34.7z"/>
+    <path id="se" class="nordeste" title="Sergipe" d="M873.3 603.3l59.3 15.3 -15.3 34.7 -59.3-14.7 15.3-35.3z"/>
+    <path id="ba" class="nordeste" title="Bahia" d="M760 540l147.3 37.3-76 147.3L661.3 650 710 530l50-16z"/>
+
+    <!-- CENTRO-OESTE -->
+    <path id="mt" class="centro" title="Mato Grosso" d="M410.7 582.7l178-18 38.7 200.7-197.3 14.7 -19.3-197.3z"/>
+    <path id="ms" class="centro" title="Mato Grosso do Sul" d="M430.7 776l152 13.3-13.3 178.7-144-20 -5.3-171z"/>
+    <path id="go" class="centro" title="Goiás" d="M596.7 690l123.3 18 -21.3 159.3-113.3 6.7L596.7 690z"/>
+    <rect id="df" title="Distrito Federal" x="683" y="760" width="30" height="30" style="fill:#444;" />
+
+    <!-- SUDESTE -->
+    <path id="mg" class="sudeste" title="Minas Gerais" d="M755.3 700l162.7 62 -33.3 180.7-224.7-16 95.3-226.7z"/>
+    <path id="sp" class="sudeste" title="São Paulo" d="M630 890.7l155.3 11.3 -37.3 114 -151.3-18.7L630 890.7z"/>
+    <path id="rj" class="sudeste" title="Rio de Janeiro" d="M812 905.3l109.3 20 -25.3 68.7 -108.7-28 24.7-60.7z"/>
+    <path id="es" class="sudeste" title="Espírito Santo" d="M895.3 820l79.3 18 -20.7 83 -83.3-28 24.7-73z"/>
+
+    <!-- SUL -->
+    <path id="pr" class="sul" title="Paraná" d="M575.3 915l152 22 -42.7 133.3-148.7-28 39.3-127.3z"/>
+    <path id="sc" class="sul" title="Santa Catarina" d="M601.3 1030l112.7 17.3 -21.3 61.3-114.7-12.7 23.3-65.3z"/>
+    <path id="rs" class="sul" title="Rio Grande do Sul" d="M558 1080l136 -7.3 -33.3 137.3 -129.3-36 26.7-93.3z"/>
+</svg>
+
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+const tooltip = document.getElementById('tooltip');
+const estados = document.querySelectorAll('#map-brasil path, #map-brasil rect');
+
+estados.forEach(el => {
+    el.addEventListener("mousemove", e => {
+        tooltip.style.display="block";
+        tooltip.innerText = el.getAttribute("title");
+        tooltip.style.left = e.pageX+15+"px";
+        tooltip.style.top  = e.pageY+15+"px";
+    });
+    el.addEventListener("mouseleave",()=> tooltip.style.display="none");
+
+    el.addEventListener("click",()=>{
+        const id = el.id;     // ex: sp, rj, ba
+        window.location.href = id + ".php";
+    });
+});
+</script>
+
 </body>
 </html>
