@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Cadastrar Patrocinador AFFE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-stone-100 p-4 md:p-8 font-sans text-stone-800">
+
+  <div class="max-w-xl mx-auto bg-white rounded-3xl shadow-md p-6 md:p-8 border border-stone-200">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-extrabold text-green-800">Novo Patrocinador</h1>
+        <p class="text-xs text-stone-500">Publicação direta no Guia de Parceiros (eldergab/affe)</p>
+      </div>
+      <a href="patrocinadores.html" target="_blank" class="text-xs font-bold bg-stone-100 hover:bg-stone-200 px-3 py-2 rounded-xl text-stone-700">
+        Ver Página Pública ↗
+      </a>
+    </div>
+
+    <form id="formCadastro" class="space-y-5">
+      <!-- Token GitHub -->
+      <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200">
+        <label class="block text-xs font-bold uppercase text-amber-900 mb-1">Seu Token GitHub (fica salvo neste aparelho)</label>
+        <input type="password" id="ghToken" placeholder="Cole aqui seu github_pat_..." class="w-full p-2.5 text-sm border border-amber-300 rounded-xl bg-white" required>
+      </div>
+
+      <!-- Foto da Loja / Arte -->
+      <div>
+        <label class="block text-sm font-bold text-stone-700 mb-1">1. Foto da Loja, Fachada ou Logomarca</label>
+        <input type="file" id="fotoLoja" accept="image/*" class="w-full text-sm text-stone-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-green-700 file:text-white hover:file:bg-green-800" required>
+      </div>
+
+      <!-- Nome da Loja -->
+      <div>
+        <label class="block text-sm font-bold text-stone-700 mb-1">2. Nome da Loja / Oficina</label>
+        <input type="text" id="nomeLoja" placeholder="Ex: Oficina Mecânica do João" class="w-full p-3 border border-stone-300 rounded-xl text-sm" required>
+      </div>
+
+      <!-- WhatsApp e Endereço -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm font-bold text-stone-700 mb-1">3. WhatsApp da Loja (com DDD)</label>
+          <input type="tel" id="zapLoja" placeholder="62999999999" class="w-full p-3 border border-stone-300 rounded-xl text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-stone-700 mb-1">4. Bairro / Endereço</label>
+          <input type="text" id="endLoja" placeholder="Ex: Parque das Primaveras" class="w-full p-3 border border-stone-300 rounded-xl text-sm">
+        </div>
+      </div>
+
+      <!-- Menu de Seleção de Produtos / Serviços -->
+      <div>
+        <label class="block text-sm font-bold text-stone-700 mb-2">5. Escolha os Produtos / Serviços que ela trabalha:</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-stone-50 p-4 rounded-2xl border border-stone-200 text-sm">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Mecânica Geral & Revisão" class="w-4 h-4 accent-green-700">
+            <span>Mecânica Geral & Revisão</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Auto Elétrica & Baterias" class="w-4 h-4 accent-green-700">
+            <span>Auto Elétrica & Baterias</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Funilaria, Pintura & Estética" class="w-4 h-4 accent-green-700">
+            <span>Funilaria, Pintura & Estética</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Peças, Pneus & Acessórios" class="w-4 h-4 accent-green-700">
+            <span>Peças, Pneus & Acessórios</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Hortifrúti & Alimentos" class="w-4 h-4 accent-green-700">
+            <span>Hortifrúti & Alimentos</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Serralheria & Materiais" class="w-4 h-4 accent-green-700">
+            <span>Serralheria & Materiais</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="produtos" value="Comércio & Serviços Gerais" class="w-4 h-4 accent-green-700">
+            <span>Comércio & Serviços Gerais</span>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" id="btnSalvar" class="w-full bg-green-700 hover:bg-green-800 text-white font-extrabold py-3.5 rounded-xl transition shadow-md">
+        Cadastrar e Publicar Loja
+      </button>
+    </form>
+
+    <div id="msgStatus" class="mt-4 text-sm font-bold text-center hidden p-3 rounded-xl"></div>
+  </div>
+
+  <script>
+    const REPO_OWNER = 'eldergab';
+    const REPO_NAME = 'affe';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('ghToken').value = localStorage.getItem('affe_gh_token') || '';
+    });
+
+    function otimizarFoto(file, maxWidth = 900) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const scale = Math.min(maxWidth / img.width, 1);
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.85).split(',')[1]);
+          };
+        };
+      });
+    }
+
+    // Codifica UTF-8 corretamente para Base64 (para acentos no JSON não quebrarem)
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+    function base64ToUtf8(str) {
+      return decodeURIComponent(escape(atob(str)));
+    }
+
+    document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const token = document.getElementById('ghToken').value.trim();
+      const nome = document.getElementById('nomeLoja').value.trim();
+      const whatsapp = document.getElementById('zapLoja').value.trim();
+      const endereco = document.getElementById('endLoja').value.trim();
+      const file = document.getElementById('fotoLoja').files[0];
+      const produtos = Array.from(document.querySelectorAll('input[name="produtos"]:checked')).map(el => el.value);
+
+      if (produtos.length === 0) {
+        alert('Marque pelo menos um produto ou serviço que a loja trabalha.');
+        return;
+      }
+
+      localStorage.setItem('affe_gh_token', token);
+
+      const btn = document.getElementById('btnSalvar');
+      const status = document.getElementById('msgStatus');
+      btn.disabled = true;
+      btn.textContent = 'Enviando foto e atualizando lista...';
+      status.className = 'mt-4 text-sm font-bold text-center block p-3 rounded-xl bg-amber-100 text-amber-900';
+      status.textContent = 'Processando imagem e salvando no GitHub...';
+
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github+json'
+      };
+
+      try {
+        // 1. Faz upload da foto
+        const imgBase64 = await otimizarFoto(file);
+        const slug = nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-');
+        const nomeArquivoImg = `${slug}-${Date.now()}.jpg`;
+        const caminhoImg = `patrocinadores/${nomeArquivoImg}`;
+
+        const resImg = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${caminhoImg}`, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify({
+            message: `Foto patrocinador: ${nome}`,
+            content: imgBase64
+          })
+        });
+
+        if (!resImg.ok) {
+          const err = await resImg.json();
+          throw new Error(err.message || 'Erro ao enviar foto. Verifique seu token.');
+        }
+
+        const fotoUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${caminhoImg}`;
+
+        // 2. Lê o arquivo patrocinadores/dados.json atual (se já existir)
+        let listaAtual = [];
+        let shaJson = null;
+
+        const resGetJson = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/patrocinadores/dados.json`, { headers });
+        if (resGetJson.ok) {
+          const dataJson = await resGetJson.json();
+          shaJson = dataJson.sha;
+          listaAtual = JSON.parse(base64ToUtf8(dataJson.content));
+        }
+
+        // Adiciona a nova loja no topo da lista
+        listaAtual.unshift({
+          id: Date.now(),
+          nome,
+          whatsapp,
+          endereco,
+          produtos,
+          fotoUrl
+        });
+
+        // 3. Salva o dados.json atualizado no GitHub
+        const bodyJson = {
+          message: `Cadastra loja no guia: ${nome}`,
+          content: utf8ToBase64(JSON.stringify(listaAtual, null, 2))
+        };
+        if (shaJson) bodyJson.sha = shaJson;
+
+        const resPutJson = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/patrocinadores/dados.json`, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(bodyJson)
+        });
+
+        if (!resPutJson.ok) throw new Error('Erro ao atualizar lista de dados.');
+
+        status.className = 'mt-4 text-sm font-bold text-center block p-3 rounded-xl bg-green-100 text-green-800';
+        status.textContent = `Pronto! "${nome}" foi cadastrado e já aparece na página de Patrocinadores.`;
+        document.getElementById('formCadastro').reset();
+        document.getElementById('ghToken').value = localStorage.getItem('affe_gh_token');
+
+      } catch (err) {
+        status.className = 'mt-4 text-sm font-bold text-center block p-3 rounded-xl bg-red-100 text-red-700';
+        status.textContent = 'Erro: ' + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Cadastrar e Publicar Loja';
+      }
+    });
+  </script>
+</body>
+</html>
