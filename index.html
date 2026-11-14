@@ -1,11 +1,880 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://affe.com.br/paf/">
-    <title>Redirecionando...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associação AFFE | Conservas Artesanais & Economia Circular (affe.com.br)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Inter & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        affe: {
+                            green: '#15803d',      // Verde Folha / Esperança
+                            greenDark: '#14532d',
+                            greenLight: '#dcfce7',
+                            amber: '#d97706',      // Âmbar / Dourado Artesanal
+                            amberDark: '#b45309',
+                            amberLight: '#fef3c7',
+                            cream: '#fafaf9',      // Fundo Creme Claro
+                            sand: '#f5f5f4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+        }
+        .tab-active {
+            background-color: #15803d;
+            color: #ffffff;
+            border-color: #15803d;
+            box-shadow: 0 10px 15px -3px rgba(21, 128, 61, 0.25);
+        }
+    </style>
 </head>
-<body>
-    <p>Caso não seja redirecionado, <a href="https://affe.com.br/paf/">clique aqui</a>.</p>
+<body class="bg-affe-cream text-stone-800 font-sans antialiased selection:bg-affe-green selection:text-white">
+
+    <!-- ==================== HEADER INSTITUCIONAL ==================== -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo AFFE -->
+                <a href="#inicio" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-affe-green to-affe-greenDark text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-seedling text-2xl text-amber-300"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-serif font-bold text-xl tracking-tight text-stone-900">AFFE</span>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-affe-greenLight text-affe-green">affe.com.br</span>
+                        </div>
+                        <p class="text-xs text-stone-500 font-medium">Associação A Família Feliz • Economia Circular</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm font-semibold text-stone-600">
+                    <a href="#pilares" onclick="selectRoleTab('ceasa')" class="px-3.5 py-2 rounded-xl hover:bg-stone-100 hover:text-affe-green transition">Para Doadores CEASA</a>
+                    <a href="#pilares" onclick="selectRoleTab('empresas')" class="px-3.5 py-2 rounded-xl hover:bg-stone-100 hover:text-affe-green transition">Empresas & Oficinas</a>
+                    <a href="#pilares" onclick="selectRoleTab('clientes')" class="px-3.5 py-2 rounded-xl hover:bg-stone-100 hover:text-affe-green transition">Clientes & Apoiadores</a>
+                    <a href="#cardapio" class="px-3.5 py-2 rounded-xl hover:bg-stone-100 hover:text-affe-green transition">Cardápio</a>
+                </nav>
+
+                <!-- CTA WhatsApp -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <a href="https://wa.me/5562920026981?text=Ol%C3%A1%20Associa%C3%A7%C3%A3o%20AFFE!%20Gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20de%20Conservas%20Artesanais." target="_blank" rel="noopener"
+                       class="bg-affe-green hover:bg-affe-greenDark text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>(62) 92002-6981</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl text-stone-700 hover:bg-stone-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-stone-200 px-4 pt-3 pb-5 space-y-2 shadow-xl">
+            <a href="#pilares" onclick="selectRoleTab('ceasa'); toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl font-semibold text-stone-700 hover:bg-affe-greenLight hover:text-affe-green">
+                <i class="fa-solid fa-tractor w-6 text-affe-green"></i> Para Doadores CEASA
+            </a>
+            <a href="#pilares" onclick="selectRoleTab('empresas'); toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl font-semibold text-stone-700 hover:bg-affe-greenLight hover:text-affe-green">
+                <i class="fa-solid fa-industry w-6 text-affe-amber"></i> Empresas & Oficinas
+            </a>
+            <a href="#pilares" onclick="selectRoleTab('clientes'); toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl font-semibold text-stone-700 hover:bg-affe-greenLight hover:text-affe-green">
+                <i class="fa-solid fa-jar w-6 text-affe-green"></i> Clientes & Apoiadores
+            </a>
+            <a href="#cardapio" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl font-semibold text-stone-700 hover:bg-stone-100">
+                <i class="fa-solid fa-utensils w-6 text-stone-500"></i> Cardápio de Legumes e Frutas
+            </a>
+            <a href="#configurador" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl font-semibold text-stone-700 hover:bg-stone-100">
+                <i class="fa-solid fa-wand-magic-sparkles w-6 text-affe-amber"></i> Participar Agora
+            </a>
+            <div class="pt-2">
+                <a href="https://wa.me/5562920026981?text=Ol%C3%A1%20Associa%C3%A7%C3%A3o%20AFFE!%20Quero%20participar%20do%20projeto%20de%20Conservas%20Artesanais." target="_blank" rel="noopener"
+                   class="w-full bg-affe-green text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Falar no WhatsApp AFFE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="inicio" class="relative overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24 bg-gradient-to-b from-emerald-50/80 via-affe-cream to-affe-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Texto Principal (Coluna Esquerda) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-emerald-200 shadow-sm text-xs font-bold text-affe-green">
+                        <span class="w-2 h-2 rounded-full bg-affe-green animate-ping"></span>
+                        <span>Projeto Social & Economia Circular • Anápolis - GO</span>
+                    </div>
+
+                    <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-900 leading-[1.15]">
+                        Transformando alimentos frescos e recicláveis em <span class="text-affe-green">dignidade</span>, <span class="text-affe-amber">sustento</span> e sabor artesanal.
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-stone-600 leading-relaxed max-w-2xl">
+                        Na <strong>Associação A Família Feliz (AFFE)</strong>, conectamos produtores do CEASA, oficinas, indústrias e famílias em uma corrente sustentável. Selecionamos hortifrútis frescos da estação e produzimos conservas artesanais em potes de vidro de 500 ml com rigorosa esterilização.
+                    </p>
+
+                    <!-- Botões de Ação Rápida para os 3 Públicos -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                        <a href="#pilares" onclick="selectRoleTab('ceasa')" class="p-4 rounded-2xl bg-white border-2 border-emerald-200 hover:border-affe-green shadow-sm hover:shadow-md transition group text-left">
+                            <div class="w-9 h-9 rounded-xl bg-affe-greenLight text-affe-green flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-tractor"></i>
+                            </div>
+                            <div class="text-xs font-bold uppercase text-affe-green">Sou do CEASA</div>
+                            <div class="text-sm font-bold text-stone-800 mt-0.5">Doar Hortifrúti</div>
+                        </a>
+
+                        <a href="#pilares" onclick="selectRoleTab('empresas')" class="p-4 rounded-2xl bg-white border-2 border-amber-200 hover:border-affe-amber shadow-sm hover:shadow-md transition group text-left">
+                            <div class="w-9 h-9 rounded-xl bg-affe-amberLight text-affe-amberDark flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-gears"></i>
+                            </div>
+                            <div class="text-xs font-bold uppercase text-affe-amberDark">Oficina / Indústria</div>
+                            <div class="text-sm font-bold text-stone-800 mt-0.5">Destinar Recicláveis</div>
+                        </a>
+
+                        <a href="#pilares" onclick="selectRoleTab('clientes')" class="p-4 rounded-2xl bg-affe-green hover:bg-affe-greenDark text-white shadow-md hover:shadow-lg transition group text-left">
+                            <div class="w-9 h-9 rounded-xl bg-white/20 text-white flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-jar"></i>
+                            </div>
+                            <div class="text-xs font-bold uppercase text-emerald-200">Cliente Final</div>
+                            <div class="text-sm font-bold text-white mt-0.5">Kit 10 Conservas</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Destaque Visual de Conservas (Coluna Direita) -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-200">
+                        <img src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?auto=format&fit=crop&w=1000&q=85" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=1000&q=80';"
+                             alt="Potes de vidro cristalinos de 500ml com conservas artesanais coloridas de legumes e frutas" 
+                             class="w-full h-[380px] sm:h-[440px] object-cover">
+                        
+                        <!-- Overlay Badge -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent flex flex-col justify-end p-6 text-white">
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-affe-green text-white text-xs font-bold px-3 py-1 rounded-full shadow">Legumes em Escabeche</span>
+                                <span class="bg-affe-amber text-white text-xs font-bold px-3 py-1 rounded-full shadow">Frutas em Calda</span>
+                            </div>
+                            <p class="font-serif text-lg font-bold leading-snug">Potes de Vidro 500 ml • 100% Artesanal</p>
+                            <p class="text-xs text-stone-200 mt-1">Higienização rigorosa, esterilização a vácuo e ingredientes frescos selecionados.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mini Card Flutuante de Transparência -->
+                    <div class="mt-4 bg-white rounded-2xl p-4 shadow-md border border-stone-200 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-affe-amberLight text-affe-amberDark flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-recycle"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-stone-800">Ciclo 100% Sustentável</p>
+                                <p class="text-[11px] text-stone-500">Alimento fresco + sucata reciclada = renda social</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-extrabold text-affe-green bg-affe-greenLight px-3 py-1 rounded-full">AFFE Social</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SEÇÃO: ESCOLHA SEU PAPEL NESTA CORRENTE DO BEM ==================== -->
+    <section id="pilares" class="py-16 bg-white border-y border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-extrabold uppercase tracking-widest text-affe-amberDark bg-affe-amberLight px-3.5 py-1.5 rounded-full">Como Participar</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-3">Escolha Seu Papel Nesta Corrente do Bem</h2>
+                <p class="text-stone-600 mt-3 text-base">
+                    Nosso projeto funciona como uma engrenagem solidária onde cada parceiro tem um papel essencial e recebe benefícios reais. Selecione seu perfil abaixo:
+                </p>
+            </div>
+
+            <!-- Botões das Abas Interativas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
+                <button id="tab-btn-ceasa" onclick="selectRoleTab('ceasa')" class="role-tab-btn tab-active px-6 py-4 rounded-2xl border-2 border-stone-200 font-bold text-sm sm:text-base transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-tractor text-lg"></i>
+                    <span>1. Doador do CEASA</span>
+                </button>
+                <button id="tab-btn-empresas" onclick="selectRoleTab('empresas')" class="role-tab-btn bg-stone-50 text-stone-700 hover:bg-stone-100 px-6 py-4 rounded-2xl border-2 border-stone-200 font-bold text-sm sm:text-base transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-industry text-lg"></i>
+                    <span>2. Oficinas & Indústrias</span>
+                </button>
+                <button id="tab-btn-clientes" onclick="selectRoleTab('clientes')" class="role-tab-btn bg-stone-50 text-stone-700 hover:bg-stone-100 px-6 py-4 rounded-2xl border-2 border-stone-200 font-bold text-sm sm:text-base transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-jar text-lg"></i>
+                    <span>3. Cliente Final (10 Potes)</span>
+                </button>
+            </div>
+
+            <!-- CONTEÚDO ABA 1: DOADOR DO CEASA -->
+            <div id="role-panel-ceasa" class="role-panel bg-emerald-50/60 border border-emerald-200 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-affe-green bg-white px-3 py-1 rounded-full border border-emerald-200">
+                            <i class="fa-solid fa-seedling"></i> Produtores Rurais e Boxistas do CEASA
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+                            Dê um destino nobre e imediato aos seus legumes e frutas selecionados
+                        </h3>
+                        <p class="text-stone-700 leading-relaxed">
+                            Sabemos do carinho e do esforço de quem produz e comercializa no CEASA. Quando você destina hortifrútis frescos e de boa qualidade para a <strong>Associação AFFE</strong>, nossos voluntários transformam esses alimentos em conservas artesanais duráveis, evitando perdas e multiplicando alimento na mesa de dezenas de famílias.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm">
+                                <h4 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-affe-green"></i> Alimentos que Recebemos
+                                </h4>
+                                <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                                    Abobrinha, pepino, tomate firme, cebola, batata, jiló, berinjela, batata-doce, mandioca, cenoura e frutas frescas da época para compotas.
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm">
+                                <h4 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-award text-affe-amber"></i> Benefícios para o Box / Produtor
+                                </h4>
+                                <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                                    Coleta ágil e organizada no local, certificado digital e reconhecimento oficial como <strong>Parceiro Social da AFFE</strong> em nosso portal.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 flex flex-wrap gap-3">
+                            <button onclick="openConfiguratorWithRole('Doador CEASA')" class="bg-affe-green hover:bg-affe-greenDark text-white font-bold px-7 py-4 rounded-xl shadow-md transition flex items-center gap-2">
+                                <i class="fa-solid fa-hand-holding-heart"></i> Quero ser um Doador CEASA
+                            </button>
+                            <a href="https://wa.me/5562920026981?text=Ol%C3%A1%20AFFE!%20Sou%20produtor%2Fboxista%20do%20CEASA%20e%20gostaria%20de%20doar%20frutas%20e%20legumes%20frescos%20de%20qualidade." target="_blank" rel="noopener"
+                               class="bg-white hover:bg-stone-50 text-affe-green border border-emerald-300 font-bold px-6 py-4 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Agendar Coleta Direta
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-white relative">
+                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Hortifrúti fresco selecionado no CEASA" class="w-full h-80 object-cover">
+                            <div class="bg-white p-4">
+                                <p class="text-xs font-bold text-affe-green uppercase">Qualidade & Respeito</p>
+                                <p class="text-sm font-semibold text-stone-800 mt-0.5">Cada caixa doada é processada no mesmo dia para preservar o frescor e os nutrientes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTEÚDO ABA 2: COMERCIANTES, OFICINAS MECÂNICAS E INDÚSTRIAS -->
+            <div id="role-panel-empresas" class="role-panel hidden bg-amber-50/70 border border-amber-200 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-affe-amberDark bg-white px-3 py-1 rounded-full border border-amber-200">
+                            <i class="fa-solid fa-recycle"></i> Economia Circular • Oficinas Mecânicas & Indústrias
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+                            Transforme sucata e resíduos sólidos em brindes personalizados e marketing positivo
+                        </h3>
+                        <p class="text-stone-700 leading-relaxed">
+                            Para produzir nossas conservas com segurança alimentar, nosso maior investimento são os <strong>vidros novos e tampas herméticas</strong>. A sua oficina ou indústria pode nos apoiar destinando resíduos sólidos recicláveis (sucata metálica, baterias usadas, alumínio, cobre, papelão ou plásticos industriais) — sem tirar dinheiro do caixa!
+                        </p>
+
+                        <!-- Box Especial de Permuta / Kit de Relacionamento -->
+                        <div class="bg-white rounded-2xl p-5 border-2 border-amber-300 shadow-sm space-y-3">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <span class="text-xs font-extrabold uppercase tracking-wider bg-affe-amber text-white px-3 py-1 rounded-full">Diferencial de Impacto para sua Empresa</span>
+                                <span class="text-xs font-bold text-stone-500">Base: Lote equivalente a R$ 100 em recicláveis</span>
+                            </div>
+                            <p class="text-sm text-stone-700 font-medium">
+                                A cada lote de sucata/recicláveis equivalente a <strong>R$ 100,00</strong> destinado à AFFE, sua empresa escolhe um <strong>Kit de Relacionamento</strong>:
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                                <div class="p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+                                    <div class="font-bold text-stone-900 text-sm"><i class="fa-solid fa-jar text-affe-green mr-1.5"></i> Opção A: 10 Conservas</div>
+                                    <p class="text-xs text-stone-600 mt-1">10 potes de 500 ml prontos para o almoço da equipe ou para presentear clientes VIPs na revisão.</p>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-300">
+                                    <div class="font-bold text-affe-amberDark text-sm"><i class="fa-solid fa-car-side mr-1.5"></i> Opção B: Combo Oficina</div>
+                                    <p class="text-xs text-stone-700 mt-1"><strong>5 potes de conserva</strong> + <strong>5 lixinhos de câmbio automotivo</strong> em tecido reforçado personalizados com a marca da sua oficina!</p>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-stone-100 flex flex-wrap items-center gap-4 text-xs font-semibold text-stone-700">
+                                <span><i class="fa-solid fa-certificate text-affe-green mr-1"></i> Selo "Empresa/Oficina Parceira Sustentável"</span>
+                                <span><i class="fa-solid fa-bullhorn text-affe-amber mr-1"></i> Divulgação nas redes sociais da AFFE</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <button onclick="openConfiguratorWithRole('Oficina ou Indústria')" class="bg-affe-amber hover:bg-affe-amberDark text-white font-bold px-7 py-4 rounded-xl shadow-md transition flex items-center gap-2">
+                                <i class="fa-solid fa-handshake"></i> Cadastrar Minha Oficina ou Empresa
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-white bg-white">
+                            <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Reciclagem e economia circular industrial" class="w-full h-64 object-cover">
+                            <div class="p-5 space-y-2">
+                                <h4 class="font-bold text-stone-900 text-base">Sua marca rodando pela cidade!</h4>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    Enquanto a conserva encanta o paladar, o <strong>lixinho de câmbio em tecido reforçado</strong> com a logo da sua oficina fica dentro do carro do cliente por anos, gerando propaganda contínua e fidelização.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTEÚDO ABA 3: CLIENTE FINAL & APOIADOR -->
+            <div id="role-panel-clientes" class="role-panel hidden bg-stone-50 border border-stone-200 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-affe-green bg-affe-greenLight px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-heart"></i> Compra Solidária • Cota de 10 Potes
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+                            Leve 10 potes de conservas artesanais de 500 ml por apenas R$ 100,00
+                        </h3>
+                        <p class="text-stone-700 leading-relaxed">
+                            Ao adquirir o <strong>Kit Solidário de 10 Conservas</strong>, você abastece sua despensa com produtos artesanais selecionados por apenas <strong>R$ 10,00 cada vidro de 500 ml</strong> (metade do preço de mercado) e financia diretamente os projetos sociais da Associação AFFE.
+                        </p>
+
+                        <ul class="space-y-3 text-sm text-stone-700">
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-affe-green text-white flex items-center justify-center text-xs shrink-0 mt-0.5">1</span>
+                                <span><strong>Escolha Personalizada:</strong> Você marca seus sabores favoritos entre legumes em escabeche/picles e frutas da estação em calda.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-affe-green text-white flex items-center justify-center text-xs shrink-0 mt-0.5">2</span>
+                                <span><strong>Entrega Conforme Produção Fresca:</strong> Preparamos os lotes semanalmente com os itens que você escolheu até completar seus 10 potes.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-affe-green text-white flex items-center justify-center text-xs shrink-0 mt-0.5">3</span>
+                                <span><strong>Logística Reversa Amiga:</strong> Após consumir, você pode devolver os vidros vazios para fortalecermos o ciclo sustentável!</span>
+                            </li>
+                        </ul>
+
+                        <div class="pt-3">
+                            <button onclick="openConfiguratorWithRole('Cliente Final (10 Potes)')" class="bg-affe-green hover:bg-affe-greenDark text-white font-bold px-8 py-4 rounded-xl shadow-md transition flex items-center gap-2">
+                                <i class="fa-solid fa-basket-shopping"></i> Garantir Meu Kit de 10 Conservas
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-white rounded-3xl p-6 shadow-lg border border-stone-200 space-y-4">
+                            <div class="flex justify-between items-center border-b border-stone-100 pb-4">
+                                <div>
+                                    <span class="text-xs font-bold uppercase text-stone-400">Cota Solidária</span>
+                                    <h4 class="font-serif text-2xl font-bold text-stone-900">Kit 10 Potes (500 ml)</h4>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-3xl font-extrabold text-affe-green">R$ 100</span>
+                                    <p class="text-[11px] text-stone-500">Sai a R$ 10,00 / pote</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2.5 text-xs text-stone-600">
+                                <div class="flex justify-between py-1 border-b border-stone-50">
+                                    <span>Capacidade por vidro:</span>
+                                    <strong class="text-stone-800">500 ml (Vidro esterilizado)</strong>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-stone-50">
+                                    <span>Validade lacrado:</span>
+                                    <strong class="text-stone-800">Até 6 meses (Vedação a vácuo)</strong>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-stone-50">
+                                    <span>Variedade:</span>
+                                    <strong class="text-stone-800">Legumes Temperados & Frutas</strong>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span>Impacto Social:</span>
+                                    <strong class="text-affe-green">100% revertido para a AFFE</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALERIA & CARDÁPIO DE CONSERVAS (LEGUMES E FRUTAS) ==================== -->
+    <section id="cardapio" class="py-16 lg:py-20 bg-affe-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-affe-green bg-affe-greenLight px-3.5 py-1.5 rounded-full">Produção Artesanal</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-3">Cardápio de Conservas: Legumes & Frutas</h2>
+                    <p class="text-stone-600 mt-2 max-w-2xl">
+                        Trabalhamos com duas linhas exclusivas em potes de 500 ml: os <strong>Legumes Selecionados</strong> (em escabeche, picles ou vinagrete) e as <strong>Frutas da Estação</strong> (compotas artesanais).
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl border border-stone-200 shadow-sm text-xs font-semibold text-stone-700">
+                    <i class="fa-solid fa-shield-halved text-affe-green text-base"></i>
+                    <span>Esterilização térmica rigorosa • Sem conservantes químicos artificiais</span>
+                </div>
+            </div>
+
+            <!-- Destaque Visual Duplo: Legumes x Frutas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+                <!-- Card Destaque Legumes -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-stone-200 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=80" 
+                             alt="Conservas artesanais de legumes frescos em potes de vidro" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-affe-green text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow">
+                            Linha Salgada & Temperada
+                        </span>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-stone-900">Conservas de Legumes & Raízes</h3>
+                            <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+                                Preparadas com vinagre de álcool nobre, azeite, alho fresco, ervas aromáticas e especiarias. Mantêm a crocância natural e são perfeitas para churrascos, saladas, petiscos e acompanhamento de refeições.
+                            </p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-stone-100 flex flex-wrap gap-2">
+                            <span class="text-xs font-semibold bg-emerald-50 text-affe-green px-2.5 py-1 rounded-lg">Pepino Crocante</span>
+                            <span class="text-xs font-semibold bg-emerald-50 text-affe-green px-2.5 py-1 rounded-lg">Abobrinha Escabeche</span>
+                            <span class="text-xs font-semibold bg-emerald-50 text-affe-green px-2.5 py-1 rounded-lg">Jiló Temperado</span>
+                            <span class="text-xs font-semibold bg-emerald-50 text-affe-green px-2.5 py-1 rounded-lg">Berinjela Caponata</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Destaque Frutas -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-stone-200 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?auto=format&fit=crop&w=900&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=80';"
+                             alt="Compotas e conservas artesanais de frutas frescas em potes de vidro" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-affe-amber text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow">
+                            Linha Doce & Compotas
+                        </span>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-stone-900">Conservas de Frutas da Estação</h3>
+                            <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+                                Frutas frescas selecionadas no ponto ideal de maturação, cozidas lentamente em calda leve com especiarias (cravo e canela) para sobremesas caseiras, queijos e cafés da tarde especiais.
+                            </p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-stone-100 flex flex-wrap gap-2">
+                            <span class="text-xs font-semibold bg-amber-50 text-affe-amberDark px-2.5 py-1 rounded-lg">Manga em Calda</span>
+                            <span class="text-xs font-semibold bg-amber-50 text-affe-amberDark px-2.5 py-1 rounded-lg">Abacaxi com Especiarias</span>
+                            <span class="text-xs font-semibold bg-amber-50 text-affe-amberDark px-2.5 py-1 rounded-lg">Goiaba Cascão</span>
+                            <span class="text-xs font-semibold bg-amber-50 text-affe-amberDark px-2.5 py-1 rounded-lg">Mamão & Laranja</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista Completa dos Sabores Disponíveis (Gerada via JS) -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="font-serif text-xl font-bold text-stone-900">Todos os Sabores da Nossa Produção</h3>
+                        <p class="text-xs text-stone-500">Produzimos conforme a safra semanal fresca selecionada junto aos nossos parceiros do CEASA.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterMenu('todos')" id="filter-todos" class="menu-filter-btn bg-stone-900 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition">Todos (14)</button>
+                        <button onclick="filterMenu('legume')" id="filter-legume" class="menu-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 text-xs font-bold px-3.5 py-2 rounded-xl transition">Legumes & Raízes</button>
+                        <button onclick="filterMenu('fruta')" id="filter-fruta" class="menu-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 text-xs font-bold px-3.5 py-2 rounded-xl transition">Frutas em Calda</button>
+                    </div>
+                </div>
+
+                <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONFIGURADOR INTERATIVO DE PEDIDO / PARCERIA ==================== -->
+    <section id="configurador" class="py-16 lg:py-20 bg-white border-t border-stone-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-affe-greenDark to-affe-green rounded-3xl p-1 shadow-2xl">
+                <div class="bg-white rounded-[22px] p-6 sm:p-10">
+                    <div class="text-center max-w-2xl mx-auto mb-8">
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-affe-green bg-affe-greenLight px-3.5 py-1 rounded-full">Atendimento Rápido via WhatsApp</span>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-3">Configure Sua Participação ou Pedido</h2>
+                        <p class="text-sm text-stone-600 mt-2">
+                            Selecione seu perfil abaixo, marque os itens de interesse e gere sua mensagem pronta para falar diretamente com a equipe da <strong>Associação AFFE</strong>.
+                        </p>
+                    </div>
+
+                    <form id="affe-configurator-form" onsubmit="sendToWhatsApp(event)" class="space-y-6">
+                        <!-- Passo 1: Escolha do Perfil -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">1. Qual é o seu perfil de participação? *</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="userRole" value="Doador CEASA" class="peer hidden" onchange="updateFormFields()" required>
+                                    <div class="p-3.5 rounded-xl border-2 border-stone-200 peer-checked:border-affe-green peer-checked:bg-emerald-50 text-center transition">
+                                        <i class="fa-solid fa-tractor text-affe-green text-lg mb-1"></i>
+                                        <div class="text-xs font-bold text-stone-800">Doador CEASA</div>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="userRole" value="Oficina ou Indústria" class="peer hidden" onchange="updateFormFields()">
+                                    <div class="p-3.5 rounded-xl border-2 border-stone-200 peer-checked:border-affe-amber peer-checked:bg-amber-50 text-center transition">
+                                        <i class="fa-solid fa-industry text-affe-amberDark text-lg mb-1"></i>
+                                        <div class="text-xs font-bold text-stone-800">Oficina / Indústria</div>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="userRole" value="Cliente Final (10 Potes)" class="peer hidden" onchange="updateFormFields()" checked>
+                                    <div class="p-3.5 rounded-xl border-2 border-stone-200 peer-checked:border-affe-green peer-checked:bg-emerald-50 text-center transition">
+                                        <i class="fa-solid fa-jar text-affe-green text-lg mb-1"></i>
+                                        <div class="text-xs font-bold text-stone-800">Cliente (10 Conservas)</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Passo 2: Dados de Identificação -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Seu Nome ou Nome da Empresa/Box *</label>
+                                <input type="text" id="cfg-name" required placeholder="Ex: João Silva / Oficina Central" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-affe-green focus:border-affe-green outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Seu WhatsApp para Contato *</label>
+                                <input type="tel" id="cfg-phone" required placeholder="Ex: (62) 99999-0000" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-affe-green focus:border-affe-green outline-none text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Campo Dinâmico para Oficinas/Indústrias -->
+                        <div id="dynamic-empresa-options" class="hidden bg-amber-50/80 p-4 rounded-2xl border border-amber-200 space-y-3">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-affe-amberDark">Escolha o Kit de Relacionamento desejado em troca dos recicláveis:</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label class="cursor-pointer flex items-start gap-2.5 bg-white p-3 rounded-xl border border-amber-200">
+                                    <input type="radio" name="empresaKit" value="Combo Oficina (5 Conservas + 5 Lixinhos Personalizados)" checked class="mt-1 accent-affe-amber">
+                                    <span class="text-xs text-stone-700"><strong>Combo Oficina:</strong> 5 potes de conserva + 5 lixinhos de câmbio com nossa marca</span>
+                                </label>
+                                <label class="cursor-pointer flex items-start gap-2.5 bg-white p-3 rounded-xl border border-amber-200">
+                                    <input type="radio" name="empresaKit" value="10 Potes de Conserva Artesanal" class="mt-1 accent-affe-amber">
+                                    <span class="text-xs text-stone-700"><strong>10 Potes de Conserva:</strong> Para consumo da equipe ou brinde VIP</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Passo 3: Seleção de Itens (Legumes/Frutas ou Materiais) -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label id="items-selection-label" class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                                    3. Marque os sabores de conserva da sua preferência:
+                                </label>
+                                <span id="selected-counter" class="text-xs font-bold text-affe-green bg-affe-greenLight px-2.5 py-0.5 rounded-full">0 selecionados</span>
+                            </div>
+                            <div id="cfg-items-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+                                <!-- Gerado via JS conforme o perfil -->
+                            </div>
+                        </div>
+
+                        <!-- Observações -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Observações ou Melhor Horário (Opcional)</label>
+                            <input type="text" id="cfg-notes" placeholder="Ex: Tenho caixas de abobrinha no pavilhão B / Tenho baterias e sucata para retirar..." class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-affe-green focus:border-affe-green outline-none text-sm">
+                        </div>
+
+                        <!-- Botão de Envio -->
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-affe-green hover:bg-affe-greenDark text-white font-bold text-base py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                <span>Enviar Solicitação no WhatsApp da AFFE</span>
+                            </button>
+                            <p class="text-center text-[11px] text-stone-500 mt-2.5">
+                                Você será redirecionado para o WhatsApp oficial da Associação AFFE: <strong>(62) 92002-6981</strong>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== RODAPÉ INSTITUCIONAL ==================== -->
+    <footer class="bg-stone-900 text-stone-300 pt-14 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-stone-800">
+                <!-- Coluna 1: Institucional -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-affe-green text-white flex items-center justify-center">
+                            <i class="fa-solid fa-seedling text-lg text-amber-300"></i>
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-lg text-white">Associação AFFE</span>
+                            <p class="text-xs text-stone-400">Associação A Família Feliz • affe.com.br</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-400 leading-relaxed">
+                        Promovendo inclusão social, segurança alimentar e economia circular em Anápolis - GO através da produção artesanal de conservas e reaproveitamento sustentável.
+                    </p>
+                </div>
+
+                <!-- Coluna 2: Links Rápidos -->
+                <div>
+                    <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Navegação Rápida</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#pilares" onclick="selectRoleTab('ceasa')" class="hover:text-emerald-400 transition">Para Doadores do CEASA</a></li>
+                        <li><a href="#pilares" onclick="selectRoleTab('empresas')" class="hover:text-amber-400 transition">Para Oficinas Mecânicas e Indústrias</a></li>
+                        <li><a href="#pilares" onclick="selectRoleTab('clientes')" class="hover:text-emerald-400 transition">Kit Solidário de 10 Conservas</a></li>
+                        <li><a href="#cardapio" class="hover:text-white transition">Cardápio de Legumes e Frutas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Contato & Transparência -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Contato Oficial</h4>
+                    <p class="text-xs text-stone-400 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-affe-green"></i> Anápolis - Goiás • Brasil
+                    </p>
+                    <p class="text-xs text-stone-400 flex items-center gap-2">
+                        <i class="fa-solid fa-globe text-affe-green"></i> www.affe.com.br
+                    </p>
+                    <a href="https://wa.me/5562920026981" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 hover:text-emerald-300 pt-1">
+                        <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp: (62) 92002-6981
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-stone-500 gap-2">
+                <p>&copy; 2026 Associação A Família Feliz (AFFE) — affe.com.br. Todos os direitos reservados.</p>
+                <p>Transparência Social • Economia Circular • Produção Artesanal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Catálogo Completo de Conservas (Legumes & Frutas)
+        const CATALOG_ITEMS = [
+            { name: 'Pepino Crocante', category: 'legume', method: 'Picles Avinagrado', desc: 'Rodelas ou palitos crocantes com endro, alho e sementes de mostarda.' },
+            { name: 'Abobrinha em Escabeche', category: 'legume', method: 'Escabeche Temperado', desc: 'Lâminas selecionadas com azeite, alho dourado e orégano fresco.' },
+            { name: 'Tomate Seco / Confit', category: 'legume', method: 'Confitado com Ervas', desc: 'Tomates firmes desidratados lentamente e imersos em óleo aromático.' },
+            { name: 'Cebola Pérola', category: 'legume', method: 'Conserva Avinagrada', desc: 'Cebolinhas inteiras com folha de louro e pimenta-do-reino em grãos.' },
+            { name: 'Jiló Temperado', category: 'legume', method: 'Escabeche Artesanal', desc: 'Preparo especial sem amargor excessivo, perfeito como petisco.' },
+            { name: 'Berinjela Caponata', category: 'legume', method: 'Antepasto / Escabeche', desc: 'Cubos macios com pimentões coloridos, ervas finas e azeite.' },
+            { name: 'Cenoura em Palitos', category: 'legume', method: 'Picles Crocante', desc: 'Branqueada no ponto certo para manter cor viva e crocância.' },
+            { name: 'Batatinha Bolinha', category: 'legume', method: 'Vinagrete Temperado', desc: 'Cozida al dente com salsa fresca, alho e toque cítrico.' },
+            { name: 'Batata-Doce Especiada', category: 'legume', method: 'Agridoce Suave', desc: 'Rodelas firmes com vinagre aromático e especiarias suaves.' },
+            { name: 'Mandioca Temperada', category: 'legume', method: 'Conserva Caseira', desc: 'Cubos selecionados com cheiro-verde, alho e esterilização a vácuo.' },
+            { name: 'Manga em Calda', category: 'fruta', method: 'Compota Artesanal', desc: 'Pedaços firmes de manga da estação cozidos em calda leve.' },
+            { name: 'Abacaxi com Especiarias', category: 'fruta', method: 'Compota Aromática', desc: 'Cubos suculentos de abacaxi com toque sutil de canela e cravo.' },
+            { name: 'Goiaba Cascão', category: 'fruta', method: 'Compota Tradicional', desc: 'Metades selecionadas de goiaba vermelha em calda brilhante.' },
+            { name: 'Mamão & Laranja', category: 'fruta', method: 'Doce Cristalino em Calda', desc: 'Receita tradicional de fazenda com textura macia e sabor equilibrado.' }
+        ];
+
+        // Itens específicos para seleção no Configurador conforme o Perfil
+        const ROLE_OPTIONS = {
+            'Doador CEASA': [
+                'Abobrinha', 'Pepino', 'Tomate Firme', 'Cebola', 'Batata', 'Jiló',
+                'Berinjela', 'Batata-doce', 'Mandioca', 'Cenoura', 'Frutas da Estação', 'Outros Hortifrútis'
+            ],
+            'Oficina ou Indústria': [
+                'Sucata Metálica / Ferro', 'Baterias Usadas', 'Alumínio / Radiadores',
+                'Cobre / Chicotes', 'Papelão / Embalagens', 'Plásticos Industriais',
+                'Potes de Vidro 500ml', 'Outros Recicláveis'
+            ],
+            'Cliente Final (10 Potes)': CATALOG_ITEMS.map(item => item.name)
+        };
+
+        let selectedCfgItems = [];
+
+        // Inicialização
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog('todos');
+            updateFormFields();
+        });
+
+        // Alternar Menu Mobile
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Alternar Abas dos 3 Públicos-Alvo
+        function selectRoleTab(roleKey) {
+            // Atualizar botões
+            document.querySelectorAll('.role-tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('bg-stone-50', 'text-stone-700');
+            });
+            const activeBtn = document.getElementById(`tab-btn-${roleKey}`);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.classList.remove('bg-stone-50', 'text-stone-700');
+            }
+
+            // Atualizar painéis
+            document.querySelectorAll('.role-panel').forEach(panel => panel.classList.add('hidden'));
+            const activePanel = document.getElementById(`role-panel-${roleKey}`);
+            if (activePanel) {
+                activePanel.classList.remove('hidden');
+            }
+        }
+
+        // Abrir Configurador já com o Perfil pré-selecionado
+        function openConfiguratorWithRole(roleValue) {
+            const radios = document.querySelectorAll('input[name="userRole"]');
+            radios.forEach(r => {
+                if (r.value === roleValue) r.checked = true;
+            });
+            updateFormFields();
+            document.getElementById('configurador').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Renderizar Cardápio de Conservas
+        function renderCatalog(filter) {
+            const grid = document.getElementById('catalog-grid');
+            const filtered = filter === 'todos' 
+                ? CATALOG_ITEMS 
+                : CATALOG_ITEMS.filter(item => item.category === filter);
+
+            // Atualizar estilo dos botões de filtro
+            document.querySelectorAll('.menu-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-stone-900', 'text-white');
+                btn.classList.add('bg-stone-100', 'text-stone-700');
+            });
+            const activeFilterBtn = document.getElementById(`filter-${filter}`);
+            if (activeFilterBtn) {
+                activeFilterBtn.classList.add('bg-stone-900', 'text-white');
+                activeFilterBtn.classList.remove('bg-stone-100', 'text-stone-700');
+            }
+
+            grid.innerHTML = filtered.map(item => {
+                const isFruta = item.category === 'fruta';
+                const badgeClass = isFruta ? 'bg-amber-100 text-affe-amberDark' : 'bg-emerald-100 text-affe-green';
+                const iconClass = isFruta ? 'fa-apple-whole text-affe-amber' : 'fa-carrot text-affe-green';
+
+                return `
+                    <div class="p-4 rounded-2xl border border-stone-200 bg-affe-cream/60 hover:bg-white hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${item.method}</span>
+                                <i class="fa-solid ${iconClass}"></i>
+                            </div>
+                            <h4 class="font-bold text-stone-900 text-base">${item.name}</h4>
+                            <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">${item.desc}</p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-stone-200/70 text-[11px] font-semibold text-stone-500 flex items-center justify-between">
+                            <span>Vidro 500 ml</span>
+                            <span class="text-affe-green">Artesanal AFFE</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterMenu(category) {
+            renderCatalog(category);
+        }
+
+        // Atualizar Campos Dinâmicos do Configurador
+        function updateFormFields() {
+            const selectedRole = document.querySelector('input[name="userRole"]:checked')?.value || 'Cliente Final (10 Potes)';
+            const empresaBox = document.getElementById('dynamic-empresa-options');
+            const label = document.getElementById('items-selection-label');
+            const container = document.getElementById('cfg-items-grid');
+
+            selectedCfgItems = [];
+            updateCounter();
+
+            if (selectedRole === 'Oficina ou Indústria') {
+                empresaBox.classList.remove('hidden');
+                label.innerText = '3. Quais materiais recicláveis/sucata sua empresa pode destinar?';
+            } else if (selectedRole === 'Doador CEASA') {
+                empresaBox.classList.add('hidden');
+                label.innerText = '3. Quais frutas ou legumes frescos você costuma ter disponíveis?';
+            } else {
+                empresaBox.classList.add('hidden');
+                label.innerText = '3. Marque os sabores favoritos para o seu Kit de 10 Conservas (R$ 100):';
+            }
+
+            const optionsList = ROLE_OPTIONS[selectedRole] || [];
+            container.innerHTML = optionsList.map(opt => `
+                <label class="cursor-pointer select-none">
+                    <input type="checkbox" value="${opt}" onchange="toggleCfgItem(this)" class="peer hidden">
+                    <div class="p-3 rounded-xl border border-stone-200 bg-stone-50 peer-checked:border-affe-green peer-checked:bg-emerald-50 peer-checked:text-affe-greenDark text-xs font-semibold text-stone-700 transition flex items-center gap-2">
+                        <i class="fa-regular fa-square peer-checked:hidden text-stone-400"></i>
+                        <i class="fa-solid fa-square-check hidden peer-checked:inline text-affe-green"></i>
+                        <span class="truncate">${opt}</span>
+                    </div>
+                </label>
+            `).join('');
+        }
+
+        function toggleCfgItem(checkbox) {
+            if (checkbox.checked) {
+                selectedCfgItems.push(checkbox.value);
+            } else {
+                selectedCfgItems = selectedCfgItems.filter(i => i !== checkbox.value);
+            }
+            updateCounter();
+        }
+
+        function updateCounter() {
+            document.getElementById('selected-counter').innerText = `${selectedCfgItems.length} selecionado(s)`;
+        }
+
+        // Gerar Mensagem e Enviar para o WhatsApp da AFFE (62 92002-6981)
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+
+            const role = document.querySelector('input[name="userRole"]:checked')?.value || 'Cliente Final (10 Potes)';
+            const name = document.getElementById('cfg-name').value.trim();
+            const phone = document.getElementById('cfg-phone').value.trim();
+            const notes = document.getElementById('cfg-notes').value.trim();
+            const itemsText = selectedCfgItems.length > 0 ? selectedCfgItems.join(', ') : 'A combinar com a equipe';
+
+            let extraLine = '';
+            if (role === 'Oficina ou Indústria') {
+                const kit = document.querySelector('input[name="empresaKit"]:checked')?.value || '';
+                extraLine = `\n*Kit de Relacionamento:* ${kit}`;
+            } else if (role === 'Cliente Final (10 Potes)') {
+                extraLine = `\n*Modalidade:* Kit Solidário 10 Potes de 500ml (R$ 100,00)`;
+            }
+
+            const rawMessage = 
+                `Olá *Associação AFFE*! Vim pelo site *affe.com.br* e quero participar do projeto de Conservas Artesanais.\n\n` +
+                `*Perfil:* ${role}\n` +
+                `*Nome / Empresa:* ${name}\n` +
+                `*Contato:* ${phone}` +
+                `${extraLine}\n` +
+                `*Itens Selecionados:* ${itemsText}` +
+                (notes ? `\n*Observações:* ${notes}` : '');
+
+            const whatsappUrl = `https://wa.me/5562920026981?text=${encodeURIComponent(rawMessage)}`;
+            window.open(whatsappUrl, '_blank', 'noopener');
+        }
+    </script>
 </body>
 </html>
